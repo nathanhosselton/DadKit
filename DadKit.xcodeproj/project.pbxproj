@@ -27,8 +27,6 @@
 		0D56C62621A0DCF300FB680E /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D56C62521A0DCF300FB680E /* PromiseKit.framework */; };
 		0D56C62821A0DDB700FB680E /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D56C62521A0DCF300FB680E /* PromiseKit.framework */; };
 		0D56C62921A0DDBE00FB680E /* PMKFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D56C62321A0DCEC00FB680E /* PMKFoundation.framework */; };
-		0D56C62B21A0DF8A00FB680E /* PromiseKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0D56C62521A0DCF300FB680E /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0D56C62C21A0DF8A00FB680E /* PMKFoundation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0D56C62321A0DCEC00FB680E /* PMKFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0D56C62E21A0E02E00FB680E /* PromiseKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0D56C62521A0DCF300FB680E /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0D56C62F21A0E02E00FB680E /* PMKFoundation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0D56C62321A0DCEC00FB680E /* PMKFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0D56C63321A1003F00FB680E /* env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D56C63221A1003F00FB680E /* env.swift */; };
@@ -45,17 +43,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		0D56C62A21A0DF7400FB680E /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				0D56C62B21A0DF8A00FB680E /* PromiseKit.framework in CopyFiles */,
-				0D56C62C21A0DF8A00FB680E /* PMKFoundation.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		0D56C62D21A0E02500FB680E /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -201,7 +188,6 @@
 				0D56C5E721A0D8D900FB680E /* Sources */,
 				0D56C5E821A0D8D900FB680E /* Frameworks */,
 				0D56C5E921A0D8D900FB680E /* Resources */,
-				0D56C62A21A0DF7400FB680E /* CopyFiles */,
 			);
 			buildRules = (
 			);
