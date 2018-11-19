@@ -142,7 +142,6 @@ struct RawItem: Decodable {
 
     struct Inventory: Decodable {
         let tierTypeHash: Item.Tier
-        let tierTypeName: String
         let bucketTypeHash: Item.Slot
     }
 }
