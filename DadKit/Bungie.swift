@@ -15,6 +15,13 @@ public enum Bungie {
     /// - Warning: An exception is raised if a version is not set prior to making a request.
     public static var appVersion: String?
 
+    /// Our decoder.
+    static var decoder: JSONDecoder {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
+    }
+
     enum API {
         case getClan(withId: String)
         case getFindClan(withQuery: String)

@@ -118,7 +118,7 @@ public extension Bungie {
         return firstly {
             URLSession.shared.dataTask(.promise, with: req).validate()
         }.map { data, _ in
-            try JSONDecoder().decode(PlayerMetaResponse.self, from: data).Response
+            try Bungie.decoder.decode(PlayerMetaResponse.self, from: data).Response
         }
     }
 
