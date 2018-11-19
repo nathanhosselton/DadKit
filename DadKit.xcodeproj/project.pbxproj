@@ -30,6 +30,7 @@
 		0D56C62E21A0E02E00FB680E /* PromiseKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0D56C62521A0DCF300FB680E /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0D56C62F21A0E02E00FB680E /* PMKFoundation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0D56C62321A0DCEC00FB680E /* PMKFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0D56C63321A1003F00FB680E /* env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D56C63221A1003F00FB680E /* env.swift */; };
+		0DCE0E2621A25CB200BE9165 /* Bungie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE0E2521A25CB200BE9165 /* Bungie.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		0D56C62321A0DCEC00FB680E /* PMKFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PMKFoundation.framework; path = Carthage/Build/iOS/PMKFoundation.framework; sourceTree = "<group>"; };
 		0D56C62521A0DCF300FB680E /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
 		0D56C63221A1003F00FB680E /* env.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = env.swift; sourceTree = "<group>"; };
+		0DCE0E2521A25CB200BE9165 /* Bungie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bungie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 		0D56C5F821A0D8D900FB680E /* DadKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				0DCE0E2521A25CB200BE9165 /* Bungie.swift */,
 				0D56C61821A0D9D500FB680E /* Character.swift */,
 				0D56C61921A0D9D500FB680E /* Clan.swift */,
 				0D56C61B21A0D9D600FB680E /* Item.swift */,
@@ -293,6 +296,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DCE0E2621A25CB200BE9165 /* Bungie.swift in Sources */,
 				0D56C62021A0D9D600FB680E /* Item.swift in Sources */,
 				0D56C61F21A0D9D600FB680E /* Player.swift in Sources */,
 				0D56C61C21A0D9D600FB680E /* Member.swift in Sources */,
