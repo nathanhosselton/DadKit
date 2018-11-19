@@ -11,6 +11,16 @@ public struct Member: Decodable {
     public let destinyUserInfo: Player
 }
 
+extension Member: Comparable {
+    public static func < (lhs: Member, rhs: Member) -> Bool {
+        return lhs.destinyUserInfo < rhs.destinyUserInfo
+    }
+
+    public static func == (lhs: Member, rhs: Member) -> Bool {
+        return lhs.destinyUserInfo == rhs.destinyUserInfo
+    }
+}
+
 //MARK: API Request
 
 public extension Bungie {

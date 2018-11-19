@@ -19,6 +19,16 @@ public struct Player: Decodable {
     internal let membershipId: String
 }
 
+extension Player: Comparable {
+    public static func < (lhs: DadKit.Player, rhs: DadKit.Player) -> Bool {
+        return lhs.displayName < rhs.displayName
+    }
+
+    public static func == (lhs: DadKit.Player, rhs: DadKit.Player) -> Bool {
+        return lhs.displayName == rhs.displayName
+    }
+}
+
 //MARK: API Request
 
 public extension Bungie {
