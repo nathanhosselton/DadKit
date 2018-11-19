@@ -59,11 +59,11 @@ public enum Bungie {
                 comps.path = basePath + "/GroupV2/\(clanId)/Members/"
 
             case .getPlayer(let player, let platform):
-                comps.path = basePath + "/Destiny2/\(platform)/Profile/\(player)"
+                comps.path = basePath + "/Destiny2/\(platform.rawValue)/Profile/\(player)"
                 comps.queryItems = [URLQueryItem(name: "components", value: Player.Components.forRaidDad.asQueryString)]
 
             case .getFindPlayer(let query, let platform):
-                comps.path = basePath + "/Destiny2/SearchDestinyPlayer/\(platform)/\(query)/"
+                comps.path = basePath + "/Destiny2/SearchDestinyPlayer/\(platform.rawValue)/\(query)/"
 
             case .getItem(let id):
                 comps.path = basePath + "/Destiny2/Manifest/DestinyInventoryItemDefinition/" + id
