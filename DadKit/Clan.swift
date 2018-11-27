@@ -2,7 +2,7 @@ import Foundation
 import PMKFoundation
 
 /// A type representing a clan on Bungie.net.
-public struct Clan: Decodable {
+public struct Clan: Codable {
 
     /// The unique identifier for this clan on Bungie.net.
     public let groupId: String
