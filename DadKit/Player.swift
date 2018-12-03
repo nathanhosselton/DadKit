@@ -25,9 +25,12 @@ extension Player: Comparable {
     }
 
     public static func == (lhs: DadKit.Player, rhs: DadKit.Player) -> Bool {
-        return lhs.displayName == rhs.displayName
+        return lhs.displayName == rhs.displayName && lhs.membershipId == rhs.membershipId
     }
 }
+
+extension Player: Hashable
+{}
 
 //MARK: API Request
 

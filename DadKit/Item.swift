@@ -80,6 +80,12 @@ public struct Item {
     }
 }
 
+extension Item: Equatable
+{}
+
+extension Item: Hashable
+{}
+
 //MARK: API Request
 
 extension Bungie {

@@ -93,6 +93,12 @@ public extension Character {
     }
 }
 
+extension Character: Equatable {
+    public static func == (lhs: Character, rhs: Character) -> Bool {
+        return lhs.id == rhs.id && lhs.subclass == rhs.subclass
+    }
+}
+
 //MARK: Loadout
 
 /// Alias for an array that contains `Item`s which can be subscripted with an `Item.Slot` or `Item.Tier`.

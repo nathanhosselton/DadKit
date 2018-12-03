@@ -14,6 +14,9 @@ public struct Clan: Codable {
 extension Clan: Equatable
 {}
 
+extension Clan: Hashable
+{}
+
 //MARK: API Request
 
 public extension Bungie {

@@ -24,7 +24,7 @@ protocol SubclassRepresentable {
 public extension Character {
 
     /// A type representing a Character's subclass.
-    public enum Subclass: Decodable {
+    public enum Subclass: Decodable, Equatable, Hashable {
 
         /// A given character's class and subclass combination.
         case solar(Class), arc(Class), void(Class)
@@ -59,7 +59,7 @@ public extension Character {
         }
 
         /// A type representing a Character's Subclass tree.
-        enum Tree: String, Decodable {
+        enum Tree: String, Decodable, Equatable, Hashable {
 
             /// The location of the tree in the Subclass screen in-game.
             case top = "Top", bottom = "Bottom", middle = "Middle"

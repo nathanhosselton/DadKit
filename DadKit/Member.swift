@@ -21,6 +21,9 @@ extension Member: Comparable {
     }
 }
 
+extension Member: Hashable
+{}
+
 //MARK: API Request
 
 public extension Bungie {
