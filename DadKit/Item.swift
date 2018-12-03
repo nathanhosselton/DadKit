@@ -24,7 +24,7 @@ public struct Item {
     public let isFullyMasterworked: Bool
 
     /// The inventory slot in which this item resides, e.g. Kinetic, Helmet, etc.
-    internal let slot: Slot
+    public let slot: Slot
 
     /// A type representing the various types of damage that a weapon can deal.
     public enum DamageType: Int, Decodable {
