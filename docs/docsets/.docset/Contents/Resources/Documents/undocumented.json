@@ -2,63 +2,63 @@
   "warnings": [
     {
       "file": "/Users/n/Dropbox/Development/Xcode/NathanHosselton/DadKit/DadKit/Bungie.swift",
-      "line": 73,
+      "line": 80,
       "symbol": "Bungie.Platform.blizzard",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/n/Dropbox/Development/Xcode/NathanHosselton/DadKit/DadKit/Bungie.swift",
-      "line": 73,
+      "line": 80,
       "symbol": "Bungie.Platform.none",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/n/Dropbox/Development/Xcode/NathanHosselton/DadKit/DadKit/Bungie.swift",
-      "line": 73,
+      "line": 80,
       "symbol": "Bungie.Platform.psn",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/n/Dropbox/Development/Xcode/NathanHosselton/DadKit/DadKit/Bungie.swift",
-      "line": 73,
+      "line": 80,
       "symbol": "Bungie.Platform.xbox",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/n/Dropbox/Development/Xcode/NathanHosselton/DadKit/DadKit/Bungie.swift",
-      "line": 81,
+      "line": 98,
       "symbol": "Bungie.Platform.init(rawValue:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/n/Dropbox/Development/Xcode/NathanHosselton/DadKit/DadKit/Character.swift",
-      "line": 57,
+      "line": 78,
       "symbol": "Character.Class.hunter",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/n/Dropbox/Development/Xcode/NathanHosselton/DadKit/DadKit/Character.swift",
-      "line": 57,
+      "line": 78,
       "symbol": "Character.Class.titan",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/n/Dropbox/Development/Xcode/NathanHosselton/DadKit/DadKit/Character.swift",
-      "line": 57,
+      "line": 78,
       "symbol": "Character.Class.unknown",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/n/Dropbox/Development/Xcode/NathanHosselton/DadKit/DadKit/Character.swift",
-      "line": 57,
+      "line": 78,
       "symbol": "Character.Class.warlock",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
