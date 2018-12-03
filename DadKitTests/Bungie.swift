@@ -12,12 +12,11 @@ class BungieTests: XCTestCase {
 
     func test_FullRequestPathSucceeds() {
         let x = expectation(description: #file + #function)
-        
 
         firstly {
             Bungie.searchForClan(named: "Meow Pew Pew")
         }.then {
-            Bungie.getClanMembers(in: $0)
+            Bungie.getMembers(in: $0)
         }.map {
             $0.prefix(6)
         }.mapValues {
