@@ -93,40 +93,46 @@ public extension Character {
     }
 }
 
+//MARK: Loadout
+
 /// Alias for an array that contains `Item`s which can be subscripted with an `Item.Slot` or `Item.Tier`.
 /// - Warning: Currently only the Raid Dad `Slot`s and `Tier`s (kinetic, energy, heavy, exotic) are supported. Attempting to subcript with another value will raise an exception.
 public typealias Loadout = [Item]
 
-//Loadout
 public extension Array where Element == Item {
+
     /// Access a `Loadout` `Item` for a given `Item.Slot`.
     /// - Warning: Currently only the weapon `Item.Slot`'s are supported. Attempting to subcript with another value will raise an exception.
-    public internal(set) subscript(slot: Item.Slot) -> Item? {
+    public internal(set) subscript(slot: Item.Slot) -> Item {
         get {
-            return first { $0.slot == slot }
+            guard let weapon = first(where: { $0.slot == slot }) else { preconditionFailure(UsedImproperSlot) }
+            return weapon
         }
         set {
-            //FIXME: Needs test
-            guard Item.Slot.weapons.contains(slot) else { fatalError("DadKit: `Loadout` subcscripting with type `Item.Slot` only supports weapon slots.") }
+            guard Item.Slot.weapons.contains(slot) else { preconditionFailure(UsedImproperSlot) }
             removeAll { $0.slot == slot }
-            newValue.flatMap { append($0) }
+            append(newValue)
         }
     }
 
     /// Access a `Loadout` `Item` for a given `Item.Tier`.
     /// - Warning: Currently only `Item.Tier.exotic` is supported. Attempting to subcript with another value will raise an exception.
-    public internal(set) subscript(slot: Item.Tier) -> Item? {
+    public internal(set) subscript(slot: Item.Tier) -> Item {
         get {
-            return first { $0.tier == slot }
+            guard let exoticArmor = first(where: { $0.tier == slot }) else { preconditionFailure(UsedImproperTier) }
+            return exoticArmor
         }
         set {
-            //FIXME: Needs test
-            guard slot == .exotic else { fatalError("DadKit: `Loadout` subcscripting with type `Item.Tier` only supports `.exotic`.") }
+            guard slot == .exotic else { preconditionFailure(UsedImproperTier) }
             removeAll { $0.tier == slot }
-            newValue.flatMap { append($0) }
+            append(newValue)
         }
     }
+
 }
+
+private var UsedImproperSlot: String { return "DadKit: `Loadout` subcscripting with type `Item.Slot` only supports weapon slots." }
+private var UsedImproperTier: String { return "DadKit: `Loadout` subcscripting with type `Item.Tier` only supports `.exotic`." }
 
 //MARK: API Request
 

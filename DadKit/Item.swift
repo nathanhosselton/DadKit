@@ -102,6 +102,7 @@ extension Bungie {
         return firstly {
             when(fulfilled: itemPromises)
         }.map { rawItems in
+            //FIXME: Needs test. Should always return all 3 weapons types and an exotic armor else other things (like Loadout subscripts) break.
             rawItems.filter { $0.isWeapon || $0.isExoticArmor }.enumerated()
         }.mapValues { offset, rawItem in
             //FIXME: Precondition: Elements of `equipment` and `instances` must be parallel.
