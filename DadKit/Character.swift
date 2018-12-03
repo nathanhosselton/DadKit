@@ -2,7 +2,7 @@ import Foundation
 import PMKFoundation
 
 /// A type for represeting an in-game character for Destiny 2.
-public struct Character: Decodable {
+public struct Character: Decodable, SubclassRepresentable {
 
     /// The player that owns this character.
     public let player: Player
@@ -11,10 +11,29 @@ public struct Character: Decodable {
     public let classType: Class
 
     /// This character's subclass, i.e. Solar, Arc, or Void.
+    /// - Note: This object is provided for convenience and has no public accessors of its own.
+    /// - SeeAlso: `subclassName`, `subclassPath`, `subclassTree`, and `subclassSuper`
     public let subclass: Subclass
 
-    /// This character's active tree for their `Subclass`.
-    public let tree: Subclass.Tree
+    /// The name for this character's chosen Subclass. E.g. "Gunslinger".
+    public var subclassName: String {
+        return subclass.name
+    }
+
+    /// The name of the path for this character's chosen Subclass. E.g. "Way of the Gunslinger".
+    public var subclassPath: String {
+        return tree.path(for: subclass)
+    }
+
+    /// The relative location of this character's chosen Subclass tree in the in-game UI. E.g. “Top”.
+    public var subclassTree: String {
+        return tree.rawValue
+    }
+
+    /// The name of the super for this character's chosen Subclass. E.g. “Golden Gun”.
+    public var subclassSuper: String {
+        return tree.super(for: subclass)
+    }
 
     /// The current experience progression level of this character.
     public let level: Int
@@ -45,6 +64,8 @@ public struct Character: Decodable {
     internal let id: String
     //The last date this character was online
     internal let dateLastPlayed: Date
+    //This character's active tree for their `Subclass`.
+    internal let tree: Subclass.Tree
     //Meta information for the currently euipped items to be used to construct the `loadout`.
     internal let equipment: [CharacterEquipment.Equipment.Item]
     //Instance information for the currently equipped items to be used to construct the `loadout`.

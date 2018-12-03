@@ -1,5 +1,26 @@
 import Foundation
 
+// This protocol so that the interfaces of Subclass and Tree may be publicly hidden.
+/// The key data points of the `Character.Subclass` and `Character.Subclass.Tree` types.
+protocol SubclassRepresentable {
+
+    /// The Subclass object provided for convenience.
+    var subclass: Character.Subclass { get }
+
+    /// The common name of the subclass. E.g. "Gunslinger".
+    var subclassName: String { get }
+
+    /// The name of the Tree's path for a given a Subclass. E.g. "Way of the Outlaw".
+    var subclassPath: String { get }
+
+    /// The relative location of the tree in the in-game UI of the Subclass. E.g. "Top".
+    var subclassTree: String { get }
+
+    /// The name of the super associated with the Tree for a given a Subclass. E.g. "Golden Gun".
+    var subclassSuper: String { get }
+
+}
+
 public extension Character {
 
     /// A type representing a Character's subclass.
@@ -11,8 +32,8 @@ public extension Character {
         /// Safety case for if/when new subclass combos are created.
         case unknown
 
-        /// The common name of the subclass.
-        public var name: String {
+        /// The common name of the subclass. E.g. "Gunslinger".
+        var name: String {
             switch self {
             case .solar(.hunter):
                 return "Gunslinger"
@@ -38,7 +59,7 @@ public extension Character {
         }
 
         /// A type representing a Character's Subclass tree.
-        public enum Tree: String, Decodable {
+        enum Tree: String, Decodable {
 
             /// The location of the tree in the Subclass screen in-game.
             case top = "Top", bottom = "Bottom", middle = "Middle"
@@ -46,8 +67,8 @@ public extension Character {
             /// Safety case for if/when new subclass trees are created.
             case unknown
 
-            /// The name of the Tree's path for a given a Subclass.
-            public func path(for subclass: Subclass) -> String {
+            /// The name of the Tree's path for a given a Subclass. E.g. "Way of the Outlaw".
+            func path(for subclass: Subclass) -> String {
                 switch (subclass, self) {
                 case (.solar(.hunter), .top):
                     return "Way of the Outlaw"
@@ -108,8 +129,8 @@ public extension Character {
                 }
             }
 
-            /// The name of the super associated with the Tree for a given a Subclass.
-            public func `super`(for subclass: Subclass) -> String {
+            /// The name of the super associated with the Tree for a given a Subclass. E.g. "Golden Gun".
+            func `super`(for subclass: Subclass) -> String {
                 switch (self, subclass) {
                 case (.middle, .solar(.hunter)):
                     return "Blade Barrage"
@@ -168,7 +189,7 @@ public extension Character {
 
             /// - Warning: `Subclass.Tree`'s declared conformance to `Decodable` is purely for the compiler.
             public init(from decoder: Decoder) throws {
-                fatalError("`Subclass.Tree` is decoded manually within the custom init of `Character` and should not be allowed to decode automatically.")
+                fatalError("DadKit: `Subclass.Tree` is decoded manually within the custom init of `Character` and should not be allowed to decode automatically.")
             }
 
         }
