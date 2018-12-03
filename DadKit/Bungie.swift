@@ -83,6 +83,16 @@ public enum Bungie {
         /// - Warning: Only valid for search queries.
         case all = -1
 
+        /// The display name of the platform.
+        public var name: String {
+            switch self {
+            case .xbox: return "XBOX"
+            case .psn: return "PSN"
+            case .blizzard: return "PC"
+            default: return ""
+            }
+        }
+
         public typealias RawValue = Int
 
         public init(rawValue: Int?) {
