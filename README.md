@@ -5,7 +5,7 @@ The complete [documentation](https://nathanhosselton.github.io/DadKit/) for the 
 ## Carthage
 
 ```ruby
-github "nathanhosselton/DadKit" ~> 0.5
+github "nathanhosselton/DadKit" ~> 0.6
 ```
 
 Update and build with carthage then add the frameworks to the Xcode project.
@@ -16,7 +16,7 @@ Update and build with carthage then add the frameworks to the Xcode project.
 
 #  Making Requests
 
-DadKit uses [PromiseKit](https://promisekit.org) to return `Promise`s from each API request instead of taking a completion handler. For instance:
+DadKit uses [PromiseKit](https://promisekit.org) to return a `Promise` from each API request instead of taking a completion handler. For instance:
 
 ```swift
 import PromiseKit
@@ -25,9 +25,9 @@ import DadKit
 firstly {
     Bungie.searchForClan(named: "Meow Pew Pew")
 }.then { clan in
-    Bungie.getClanMembers(in: clan)
+    Bungie.getMembers(in: clan)
 }.done { members in
-    //display the members in a table view or w/e
+    //e.g. display the members in a list
 }.catch { error in
     //handle or display any error that may occur throughout the chain
 }
