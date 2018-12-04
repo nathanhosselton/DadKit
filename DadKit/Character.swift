@@ -57,8 +57,8 @@ public struct Character: Decodable, SubclassRepresentable {
     public let emblemBackgroundPath: URL
 
     /// The RaidDad-relevant gear equipped on the character.
-    /// - Warning: This will be nil when using `Bungie.getCurrentCharacterWithoutLoadout(for:)`, requiring manual retreival and loadout tracking with `Bungie.getLoadout(for:)`.
-    public internal(set) var loadout: Loadout! = nil
+    /// - Note: This will be empty when using `Bungie.getCurrentCharacterWithoutLoadout(for:)`, requiring manual retreival and loadout tracking with `Bungie.getLoadout(for:)`.
+    public internal(set) var loadout = Loadout(with: [])
 
     //This character's unique identifier
     internal let id: String
@@ -107,13 +107,13 @@ public extension Character {
     public struct Loadout {
 
         /// The weapon equipped in the kinetic slot.
-        public let kinetic: Item
+        public let kinetic: Item?
 
         /// The weapon equipped in the energy slot.
-        public let energy: Item
+        public let energy: Item?
 
         /// The weapon equipped in the heavy slot.
-        public let heavy: Item
+        public let heavy: Item?
 
         /// The exotic armor piece equipped, if any.
         public let exoticArmor: Item?
@@ -123,20 +123,51 @@ public extension Character {
             return exoticArmor != nil
         }
 
-        /// Initializes a new `Loadout` object using an array of `Item`s which must contain at least one weapon
-        /// for each weapon slot, else intialization fails.
-        init?(with items: [Item]) {
-            guard let k = items.first(where: { $0.slot == .kinetic }),
-                  let e = items.first(where: { $0.slot == .energy }),
-                  let h = items.first(where: { $0.slot == .heavy })
-                else { return nil }
+//        public typealias Iterator = LoadoutIterator
+//
+//        public typealias Element = Item
+//
+//        public func makeIterator() -> Iterator {
+//            return LoadoutIterator(self)
+//        }
 
-            kinetic = k
-            energy = e
-            heavy = h
+        /// Initializes a new `Loadout` object using an array of `Item`s, mapping to properties from the corresponding item slots.
+        init(with items: [Item]) {
+            kinetic = items.first(where: { $0.slot == .kinetic })
+            energy = items.first(where: { $0.slot == .energy })
+            heavy = items.first(where: { $0.slot == .heavy })
             exoticArmor = items.first(where: { ($0.slot, $0.tier) == Item.exoticArmor })
         }
     }
+
+//    /// The iterator for traversing a `Loadout`.
+//    public struct LoadoutIterator: IteratorProtocol {
+//        private let loadout: Loadout
+//        private var position = 0
+//
+//        public typealias Element = Item
+//
+//        fileprivate init(_ loadout: Loadout) {
+//            self.loadout = loadout
+//        }
+//
+//        mutating public func next() -> Element? {
+//            defer { position += 1}
+//
+//            switch position {
+//            case 0:
+//                return loadout.kinetic
+//            case 1:
+//                return loadout.energy
+//            case 2:
+//                return loadout.heavy
+//            case 3:
+//                return loadout.exoticArmor
+//            default:
+//                return nil
+//            }
+//        }
+//    }
 
 }
 
@@ -156,8 +187,6 @@ public extension Bungie {
     }
 
     /// Retrieves the given `player`'s most recently used `Character`, fully formed, including all `loadout` data.
-    /// - Note: `throws` `Bungie.Error.characterLoadoutIsInTransientState` if the loadout cannot be fully formed.
-    /// - SeeAlso: `Bungie.Error.characterLoadoutIsInTransientState`
     public static func getCurrentCharacter(for player: Player) -> Promise<Character> {
         return firstly {
             Bungie.getCurrentCharacterWithoutLoadout(for: player)

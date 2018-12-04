@@ -107,8 +107,7 @@ extension Bungie {
 
     /// Retrieves the complete `Loadout` for a given `character`. This function is only necessary when using
     /// `Bungie.getCurrentCharacterWithoutLoadout(for:)`.
-    /// - Note: `throws` `Bungie.Error.characterLoadoutIsInTransientState` if the loadout cannot be fully formed.
-    /// - SeeAlso: `Bungie.getCurrentCharacterWithoutLoadout(for:)`, `Bungie.Error.characterLoadoutIsInTransientState`
+    /// - SeeAlso: `Bungie.getCurrentCharacterWithoutLoadout(for:)`
     public static func getLoadout(for character: Character) -> Promise<Character.Loadout> {
         let itemPromises = character.equipment.map({ $0.itemHash }).map(Bungie.getItem)
 
@@ -123,8 +122,7 @@ extension Bungie {
         }.compactMapValues(on: .global()) {
             Item(from: $0, equip: $1, instance: $2)
         }.map(on: .global()) { items in
-            guard let loadout = Character.Loadout(with: items) else { throw Bungie.Error.characterLoadoutIsInTransientState }
-            return loadout
+            Character.Loadout(with: items)
         }
     }
 }
