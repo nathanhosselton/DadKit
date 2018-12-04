@@ -56,9 +56,9 @@ public struct Character: Decodable, SubclassRepresentable {
     /// The url for the character's current emblem for background display.
     public let emblemBackgroundPath: URL
 
-    /// The relevant items equipped on the character. Subscriptable with `Item.Slot` and `Item.Tier`.
-    /// - Note: This will be empty when using `Bungie.getCurrentCharacterWithoutLoadout(for:)`, requiring manual retreival and loadout tracking with `Bungie.getEquippedItems(for:)`.
-    public internal(set) var loadout: Loadout = []
+    /// The RaidDad-relevant gear equipped on the character.
+    /// - Warning: This will be nil when using `Bungie.getCurrentCharacterWithoutLoadout(for:)`, requiring manual retreival and loadout tracking with `Bungie.getLoadout(for:)`.
+    public internal(set) var loadout: Loadout! = nil
 
     //This character's unique identifier
     internal let id: String
@@ -101,44 +101,44 @@ extension Character: Equatable {
 
 //MARK: Loadout
 
-/// Alias for an array that contains `Item`s which can be subscripted with an `Item.Slot` or `Item.Tier`.
-/// - Warning: Currently only the Raid Dad `Slot`s and `Tier`s (kinetic, energy, heavy, exotic) are supported. Attempting to subcript with another value will raise an exception.
-public typealias Loadout = [Item]
+public extension Character {
 
-public extension Array where Element == Item {
+    /// A type representing the Raid Dad loadout of a `Character`.
+    public struct Loadout {
 
-    /// Access a `Loadout` `Item` for a given `Item.Slot`.
-    /// - Warning: Currently only the weapon `Item.Slot`'s are supported. Attempting to subcript with another value will raise an exception.
-    public internal(set) subscript(slot: Item.Slot) -> Item {
-        get {
-            guard let weapon = first(where: { $0.slot == slot }) else { preconditionFailure(UsedImproperSlot) }
-            return weapon
-        }
-        set {
-            guard Item.Slot.weapons.contains(slot) else { preconditionFailure(UsedImproperSlot) }
-            removeAll { $0.slot == slot }
-            append(newValue)
-        }
-    }
+        /// The weapon equipped in the kinetic slot.
+        public let kinetic: Item
 
-    /// Access a `Loadout` `Item` for a given `Item.Tier`.
-    /// - Warning: Currently only `Item.Tier.exotic` is supported. Attempting to subcript with another value will raise an exception.
-    public internal(set) subscript(slot: Item.Tier) -> Item {
-        get {
-            guard let exoticArmor = first(where: { $0.tier == slot }) else { preconditionFailure(UsedImproperTier) }
-            return exoticArmor
+        /// The weapon equipped in the energy slot.
+        public let energy: Item
+
+        /// The weapon equipped in the heavy slot.
+        public let heavy: Item
+
+        /// The exotic armor piece equipped, if any.
+        public let exoticArmor: Item?
+
+        /// Returns `true` if the loadout contains an exotic armor piece (i.e. `exoticArmor` is non-nil).
+        public var hasExoticArmor: Bool {
+            return exoticArmor != nil
         }
-        set {
-            guard slot == .exotic else { preconditionFailure(UsedImproperTier) }
-            removeAll { $0.tier == slot }
-            append(newValue)
+
+        /// Initializes a new `Loadout` object using an array of `Item`s which must contain at least one weapon
+        /// for each weapon slot, else intialization fails.
+        init?(with items: [Item]) {
+            guard let k = items.first(where: { $0.slot == .kinetic }),
+                  let e = items.first(where: { $0.slot == .energy }),
+                  let h = items.first(where: { $0.slot == .heavy })
+                else { return nil }
+
+            kinetic = k
+            energy = e
+            heavy = h
+            exoticArmor = items.first(where: { ($0.slot, $0.tier) == Item.exoticArmor })
         }
     }
 
 }
-
-private var UsedImproperSlot: String { return "DadKit: `Loadout` subcscripting with type `Item.Slot` only supports weapon slots." }
-private var UsedImproperTier: String { return "DadKit: `Loadout` subcscripting with type `Item.Tier` only supports `.exotic`." }
 
 //MARK: API Request
 
@@ -161,9 +161,9 @@ public extension Bungie {
             Bungie.getCurrentCharacterWithoutLoadout(for: player)
         }.then { character in
             Bungie.getLoadout(for: character).map { (character, $0) }
-        }.map { character, items in
+        }.map { character, loadout in
             var character = character
-            character.loadout = items
+            character.loadout = loadout
             return character
         }
     }

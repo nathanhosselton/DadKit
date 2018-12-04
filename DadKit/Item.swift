@@ -2,8 +2,12 @@ import Foundation
 import PMKFoundation
 
 public struct Item {
+
     /// Abstract definition of an exotic armor piece for comparison during initialization.
-    internal static let exoticArmor = (Item.Slot.armor, Item.Tier.exotic)
+    internal typealias ExoticArmorComparitor = ([Item.Slot], Item.Tier)
+
+    /// Abstract definition of an exotic armor piece for comparison during initialization.
+    internal static let exoticArmor: ExoticArmorComparitor = (Item.Slot.armor, Item.Tier.exotic)
 
     /// The display name of this item.
     public let name: String
@@ -67,6 +71,7 @@ public struct Item {
         }
     }
 
+    /// Builds the fully constructed `Item` from its various components across the API.
     fileprivate init?(from rawItem: RawItem, equip: CharacterEquipment.Equipment.Item, instance: ItemComponents.Instances.Item) {
         guard let powerLevel = instance.primaryStat?.value else { return nil }
 
@@ -102,24 +107,30 @@ extension Bungie {
 
     /// Retrieves the complete `Loadout` for a given `character`. This function is only necessary when using
     /// `Bungie.getCurrentCharacterWithoutLoadout(for:)`.
-    public static func getLoadout(for character: Character) -> Promise<Loadout> {
+    /// - Note: `throws Bungie.Error.characterLoadoutIsInTransientState` if the loadout cannot be fully formed.
+    /// - SeeAlso: `Bungie.getCurrentCharacterWithoutLoadout(for:)`, `Bungie.Error.characterLoadoutIsInTransientState`
+    public static func getLoadout(for character: Character) -> Promise<Character.Loadout> {
         let itemPromises = character.equipment.map({ $0.itemHash }).map(Bungie.getItem)
 
         return firstly {
             when(fulfilled: itemPromises)
         }.map { rawItems in
-            //FIXME: Needs test. Should always return all 3 weapons types and an exotic armor else other things (like Loadout subscripts) break.
+            //FIXME: Needs test. Should always return all 3 weapons types and an exotic armor.
             rawItems.filter { $0.isWeapon || $0.isExoticArmor }.enumerated()
         }.mapValues { offset, rawItem in
-            //FIXME: Precondition: Elements of `equipment` and `instances` must be parallel.
+            //FIXME: Precondition: Elements of `equipment` and `instances` must be parallel, a condition supplied by Character.init(from:)
             (rawItem, character.equipment[offset], character.itemInstances[offset])
         }.compactMapValues {
             Item(from: $0, equip: $1, instance: $2)
+        }.map { items in
+            guard let loadout = Character.Loadout(with: items) else { throw Bungie.Error.characterLoadoutIsInTransientState }
+            return loadout
         }
     }
 }
 
-private func ==(lhs: (Item.Slot, Item.Tier), rhs: ([Item.Slot], Item.Tier)) -> Bool {
+/// Comparitor for checking if an item is exotic armor
+func ==(lhs: (Item.Slot, Item.Tier), rhs: Item.ExoticArmorComparitor) -> Bool {
     return rhs.0.contains(lhs.0) && lhs.1 == rhs.1
 }
 
