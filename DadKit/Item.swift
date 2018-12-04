@@ -100,7 +100,7 @@ extension Bungie {
 
         return firstly {
             URLSession.shared.dataTask(.promise, with: req).validate()
-        }.map { data, _ in
+        }.map(on: .global()) { data, _ in
             try JSONDecoder().decode(MetaItemResponse.self, from: data).Response
         }
     }
@@ -114,15 +114,15 @@ extension Bungie {
 
         return firstly {
             when(fulfilled: itemPromises)
-        }.map { rawItems in
+        }.map(on: .global()) { rawItems in
             //FIXME: Needs test. Should always return all 3 weapons types and an exotic armor.
             rawItems.filter { $0.isWeapon || $0.isExoticArmor }.enumerated()
-        }.mapValues { offset, rawItem in
+        }.mapValues(on: .global()) { offset, rawItem in
             //FIXME: Precondition: Elements of `equipment` and `instances` must be parallel, a condition supplied by Character.init(from:)
             (rawItem, character.equipment[offset], character.itemInstances[offset])
-        }.compactMapValues {
+        }.compactMapValues(on: .global()) {
             Item(from: $0, equip: $1, instance: $2)
-        }.map { items in
+        }.map(on: .global()) { items in
             guard let loadout = Character.Loadout(with: items) else { throw Bungie.Error.characterLoadoutIsInTransientState }
             return loadout
         }

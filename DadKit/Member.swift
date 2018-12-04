@@ -33,7 +33,7 @@ public extension Bungie {
 
         return firstly {
             URLSession.shared.dataTask(.promise, with: req).validate()
-        }.map { data, _ in
+        }.map(on: .global()) { data, _ in
             try Bungie.decoder.decode(MemberMetaResponse.self, from: data).Response.results
         }
     }

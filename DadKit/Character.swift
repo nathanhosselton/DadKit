@@ -150,7 +150,7 @@ public extension Bungie {
 
         return firstly {
             URLSession.shared.dataTask(.promise, with: req).validate()
-        }.map { data, _ in
+        }.map(on: .global()) { data, _ in
             try Bungie.decoder.decode(PlayerMetaResponse.self, from: data).Response
         }
     }
@@ -161,9 +161,9 @@ public extension Bungie {
     public static func getCurrentCharacter(for player: Player) -> Promise<Character> {
         return firstly {
             Bungie.getCurrentCharacterWithoutLoadout(for: player)
-        }.then { character in
+        }.then(on: .global()) { character in
             Bungie.getLoadout(for: character).map { (character, $0) }
-        }.map { character, loadout in
+        }.map(on: .global()) { character, loadout in
             var character = character
             character.loadout = loadout
             return character

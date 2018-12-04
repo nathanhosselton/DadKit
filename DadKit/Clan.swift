@@ -26,7 +26,7 @@ public extension Bungie {
 
         return firstly {
             URLSession.shared.dataTask(.promise, with: req).validate()
-        }.map { data, _ in
+        }.map(on: .global()) { data, _ in
             try Bungie.decoder.decode(ClanMetaResponse.self, from: data).Response.detail
         }
     }
@@ -37,7 +37,7 @@ public extension Bungie {
         
         return firstly {
             URLSession.shared.dataTask(.promise, with: req).validate()
-        }.map { data, _ in
+        }.map(on: .global()) { data, _ in
             //TODO: Error state?
             try Bungie.decoder.decode(ClanMetaResponse.self, from: data).Response.detail
         }
