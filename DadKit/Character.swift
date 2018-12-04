@@ -156,6 +156,8 @@ public extension Bungie {
     }
 
     /// Retrieves the given `player`'s most recently used `Character`, fully formed, including all `loadout` data.
+    /// - Note: `throws` `Bungie.Error.characterLoadoutIsInTransientState` if the loadout cannot be fully formed.
+    /// - SeeAlso: `Bungie.Error.characterLoadoutIsInTransientState`
     public static func getCurrentCharacter(for player: Player) -> Promise<Character> {
         return firstly {
             Bungie.getCurrentCharacterWithoutLoadout(for: player)
