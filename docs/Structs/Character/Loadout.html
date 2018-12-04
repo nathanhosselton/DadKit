@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Error Enumeration Reference</title>
+    <title>Loadout Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/Error" class="dashAnchor"></a>
-    <a title="Error Enumeration Reference"></a>
+    <a name="//apple_ref/swift/Struct/Loadout" class="dashAnchor"></a>
+    <a title="Loadout Structure Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../../index.html"> Docs</a> (74% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../../index.html"> Reference</a>
         <img id="carat" src="../../img/carat.png" />
-        Error Enumeration Reference
+        Loadout Structure Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -84,14 +84,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Error</h1>
+            <h1>Loadout</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Error</span> <span class="p">:</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt">Error</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Loadout</span></code></pre>
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>A type representing the Raid Dad loadout of a <code><a href="../../Structs/Character.html">Character</a></code>.</p>
 
           </section>
           <section class="section task-group-section">
@@ -100,9 +100,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6DadKit6BungieO5ErrorO34characterLoadoutIsInTransientStateyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/characterLoadoutIsInTransientState" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6DadKit6BungieO5ErrorO34characterLoadoutIsInTransientStateyA2EmF">characterLoadoutIsInTransientState</a>
+                    <a name="/s:6DadKit9CharacterV7LoadoutV7kineticAA4ItemVvp"></a>
+                    <a name="//apple_ref/swift/Property/kinetic" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DadKit9CharacterV7LoadoutV7kineticAA4ItemVvp">kinetic</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -110,14 +110,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Occurs when downloading and forming a <code><a href="../../Structs/Character.html#/s:6DadKit9CharacterV7loadoutAC7LoadoutVSgvp">Character.loadout</a></code> fails. See <code><a href="../../Enums/Bungie/Error.html#/s:s23CustomStringConvertibleP11descriptionSSvp">description</a></code> for reasons.</p>
+                        <p>The weapon equipped in the kinetic slot.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">characterLoadoutIsInTransientState</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">kinetic</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Item.html">Item</a></span></code></pre>
 
                         </div>
                       </div>
@@ -127,9 +127,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6DadKit6BungieO5ErrorO32noCharactersAssociatedWithPlayeryA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/noCharactersAssociatedWithPlayer" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6DadKit6BungieO5ErrorO32noCharactersAssociatedWithPlayeryA2EmF">noCharactersAssociatedWithPlayer</a>
+                    <a name="/s:6DadKit9CharacterV7LoadoutV6energyAA4ItemVvp"></a>
+                    <a name="//apple_ref/swift/Property/energy" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DadKit9CharacterV7LoadoutV6energyAA4ItemVvp">energy</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -137,14 +137,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Occurs when there are no characters associated with a <code><a href="../../Structs/Player.html">Player</a></code>.</p>
+                        <p>The weapon equipped in the energy slot.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">noCharactersAssociatedWithPlayer</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">energy</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Item.html">Item</a></span></code></pre>
 
                         </div>
                       </div>
@@ -154,9 +154,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:s23CustomStringConvertibleP11descriptionSSvp"></a>
-                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
-                    <a class="token" href="#/s:s23CustomStringConvertibleP11descriptionSSvp">description</a>
+                    <a name="/s:6DadKit9CharacterV7LoadoutV5heavyAA4ItemVvp"></a>
+                    <a name="//apple_ref/swift/Property/heavy" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DadKit9CharacterV7LoadoutV5heavyAA4ItemVvp">heavy</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -164,13 +164,68 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>The weapon equipped in the heavy slot.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="nf">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">heavy</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Item.html">Item</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DadKit9CharacterV7LoadoutV11exoticArmorAA4ItemVSgvp"></a>
+                    <a name="//apple_ref/swift/Property/exoticArmor" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DadKit9CharacterV7LoadoutV11exoticArmorAA4ItemVSgvp">exoticArmor</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The exotic armor piece equipped, if any.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">exoticArmor</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Item.html">Item</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6DadKit9CharacterV7LoadoutV14hasExoticArmorSbvp"></a>
+                    <a name="//apple_ref/swift/Property/hasExoticArmor" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DadKit9CharacterV7LoadoutV14hasExoticArmorSbvp">hasExoticArmor</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns <code>true</code> if the loadout contains an exotic armor piece (i.e. <code><a href="../../Structs/Character/Loadout.html#/s:6DadKit9CharacterV7LoadoutV11exoticArmorAA4ItemVSgvp">exoticArmor</a></code> is non-nil).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">hasExoticArmor</span><span class="p">:</span> <span class="nf">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>

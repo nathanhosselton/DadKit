@@ -14,7 +14,7 @@
     <a title="Bungie Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (72% documented)</p>
+        <p><a href="../index.html"> Docs</a> (74% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -42,14 +42,6 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Extensions.html">Extensions</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Extensions/Array.html">Array</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
             <a href="../Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -57,6 +49,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Character/Class.html">– Class</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Character/Loadout.html">– Loadout</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Character/Subclass.html">– Subclass</a>
@@ -81,14 +76,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Player.html">Player</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="../Typealiases.html">Type Aliases</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Typealiases.html#/s:6DadKit7Loadouta">Loadout</a>
               </li>
             </ul>
           </li>
@@ -259,7 +246,7 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Retrieves the given <code>player</code>&lsquo;s most recently used <code><a href="../Structs/Character.html">Character</a></code> without making the requests for the <code>loadout</code>.
-When using this function, the <code><a href="../Typealiases.html#/s:6DadKit7Loadouta">Loadout</a></code> will need to be requested using <code><a href="../Enums/Bungie.html#/s:6DadKit6BungieO10getLoadout3for07PromiseB00G0CySayAA4ItemVGGAA9CharacterV_tFZ">Bungie.getLoadout(for:)</a></code> and tracked separately.</p>
+When using this function, the <code>Loadout</code> will need to be requested using <code><a href="../Enums/Bungie.html#/s:6DadKit6BungieO10getLoadout3for07PromiseB00G0CyAA9CharacterV0E0VGAJ_tFZ">Bungie.getLoadout(for:)</a></code> and tracked separately.</p>
 
                       </div>
                       <div class="declaration">
@@ -390,7 +377,7 @@ When using this function, the <code><a href="../Typealiases.html#/s:6DadKit7Load
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Error</span> <span class="p">:</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt">Error</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Error</span> <span class="p">:</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt">Error</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
 
                         </div>
                       </div>
@@ -411,9 +398,9 @@ When using this function, the <code><a href="../Typealiases.html#/s:6DadKit7Load
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6DadKit6BungieO10getLoadout3for07PromiseB00G0CySayAA4ItemVGGAA9CharacterV_tFZ"></a>
+                    <a name="/s:6DadKit6BungieO10getLoadout3for07PromiseB00G0CyAA9CharacterV0E0VGAJ_tFZ"></a>
                     <a name="//apple_ref/swift/Method/getLoadout(for:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6DadKit6BungieO10getLoadout3for07PromiseB00G0CySayAA4ItemVGGAA9CharacterV_tFZ">getLoadout(for:)</a>
+                    <a class="token" href="#/s:6DadKit6BungieO10getLoadout3for07PromiseB00G0CyAA9CharacterV0E0VGAJ_tFZ">getLoadout(for:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -421,15 +408,25 @@ When using this function, the <code><a href="../Typealiases.html#/s:6DadKit7Load
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Retrieves the complete <code><a href="../Typealiases.html#/s:6DadKit7Loadouta">Loadout</a></code> for a given <code>character</code>. This function is only necessary when using
+                        <p>Retrieves the complete <code>Loadout</code> for a given <code>character</code>. This function is only necessary when using
 <code><a href="../Enums/Bungie.html#/s:6DadKit6BungieO33getCurrentCharacterWithoutLoadout3for07PromiseB00J0CyAA0F0VGAA6PlayerV_tFZ">Bungie.getCurrentCharacterWithoutLoadout(for:)</a></code>.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <code>throws Bungie.Error.characterLoadoutIsInTransientState</code> if the loadout cannot be fully formed.
+
+</div>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <code><a href="../Enums/Bungie.html#/s:6DadKit6BungieO33getCurrentCharacterWithoutLoadout3for07PromiseB00J0CyAA0F0VGAA6PlayerV_tFZ">Bungie.getCurrentCharacterWithoutLoadout(for:)</a></code>, <code><a href="../Enums/Bungie/Error.html#/s:6DadKit6BungieO5ErrorO34characterLoadoutIsInTransientStateyA2EmF">Bungie.Error.characterLoadoutIsInTransientState</a></code>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getLoadout</span><span class="p">(</span><span class="k">for</span> <span class="nv">character</span><span class="p">:</span> <span class="kt"><a href="../Structs/Character.html">Character</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="kt"><a href="../Typealiases.html#/s:6DadKit7Loadouta">Loadout</a></span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getLoadout</span><span class="p">(</span><span class="k">for</span> <span class="nv">character</span><span class="p">:</span> <span class="kt"><a href="../Structs/Character.html">Character</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Character.html">Character</a></span><span class="o">.</span><span class="kt">Loadout</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -522,7 +519,7 @@ When using this function, the <code><a href="../Typealiases.html#/s:6DadKit7Load
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-12-03)</p>
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-12-04)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

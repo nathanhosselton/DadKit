@@ -5,7 +5,7 @@ The complete [documentation](https://nathanhosselton.github.io/DadKit/) for the 
 ## Carthage
 
 ```ruby
-github "nathanhosselton/DadKit" ~> 0.6
+github "nathanhosselton/DadKit" ~> 0.7
 ```
 
 Update and build with carthage then add the frameworks to the Xcode project.

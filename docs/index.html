@@ -13,7 +13,7 @@
     <a title="  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html"> Docs</a> (72% documented)</p>
+        <p><a href="index.html"> Docs</a> (74% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -41,14 +41,6 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Extensions.html">Extensions</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Extensions/Array.html">Array</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
             <a href="Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -56,6 +48,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Character/Class.html">– Class</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Character/Loadout.html">– Loadout</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Character/Subclass.html">– Subclass</a>
@@ -83,14 +78,6 @@
               </li>
             </ul>
           </li>
-          <li class="nav-group-name">
-            <a href="Typealiases.html">Type Aliases</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Typealiases.html#/s:6DadKit7Loadouta">Loadout</a>
-              </li>
-            </ul>
-          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -101,7 +88,7 @@
 
 <p>The complete <a href="https://nathanhosselton.github.io/DadKit/">documentation</a> for the public APIs of the <code>DadKit</code> framework which backs the <a href="https://raiddad.com">Raid Dad</a> iOS app.</p>
 <h2 id='carthage' class='heading'>Carthage</h2>
-<pre class="highlight ruby"><code><span class="n">github</span> <span class="s2">"nathanhosselton/DadKit"</span> <span class="o">~&gt;</span> <span class="mf">0.5</span>
+<pre class="highlight ruby"><code><span class="n">github</span> <span class="s2">"nathanhosselton/DadKit"</span> <span class="o">~&gt;</span> <span class="mf">0.7</span>
 </code></pre>
 
 <p>Update and build with carthage then add the frameworks to the Xcode project.</p>
@@ -110,16 +97,16 @@
 <p><code>import DadKit</code> and ensure <code><a href="Enums/Bungie.html#/s:6DadKit6BungieO3keySSSgvpZ">Bungie.key</a></code>, <code><a href="Enums/Bungie.html#/s:6DadKit6BungieO5appIdSSSgvpZ">Bungie.appId</a></code>, and <code><a href="Enums/Bungie.html#/s:6DadKit6BungieO10appVersionSSSgvpZ">Bungie.appVersion</a></code> are set before executing any requests.</p>
 <h1 id='making-requests' class='heading'>Making Requests</h1>
 
-<p>DadKit uses <a href="https://promisekit.org">PromiseKit</a> to return <code>Promise</code>s from each API request instead of taking a completion handler. For instance:</p>
+<p>DadKit uses <a href="https://promisekit.org">PromiseKit</a> to return a <code>Promise</code> from each API request instead of taking a completion handler. For instance:</p>
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">PromiseKit</span>
 <span class="kd">import</span> <span class="kt">DadKit</span>
 
 <span class="nf">firstly</span> <span class="p">{</span>
     <span class="kt">Bungie</span><span class="o">.</span><span class="nf">searchForClan</span><span class="p">(</span><span class="nv">named</span><span class="p">:</span> <span class="s">"Meow Pew Pew"</span><span class="p">)</span>
 <span class="p">}</span><span class="o">.</span><span class="nf">then</span> <span class="p">{</span> <span class="n">clan</span> <span class="k">in</span>
-    <span class="kt">Bungie</span><span class="o">.</span><span class="nf">getClanMembers</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="n">clan</span><span class="p">)</span>
+    <span class="kt">Bungie</span><span class="o">.</span><span class="nf">getMembers</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="n">clan</span><span class="p">)</span>
 <span class="p">}</span><span class="o">.</span><span class="nf">done</span> <span class="p">{</span> <span class="n">members</span> <span class="k">in</span>
-    <span class="c1">//display the members in a table view or w/e</span>
+    <span class="c1">//e.g. display the members in a list</span>
 <span class="p">}</span><span class="o">.</span><span class="nf">catch</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
     <span class="c1">//handle or display any error that may occur throughout the chain</span>
 <span class="p">}</span>
@@ -128,7 +115,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-12-03)</p>
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-12-04)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
