@@ -26,11 +26,10 @@ class BungieTests: XCTestCase {
         }.done { _ in
             x.fulfill()
         }.catch {
-            print($0)
-            XCTFail($0.localizedDescription)
+            XCTFail(($0 as NSError).description)
             x.fulfill()
         }
 
-        wait(for: [x], timeout: 1000)
+        wait(for: [x], timeout: 10)
     }
 }

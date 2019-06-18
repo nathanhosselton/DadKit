@@ -24,9 +24,10 @@ class ClanTests: XCTestCase {
         let x = expectation(description: "Get Clan request responds with 200.")
         let promise = URLSession.shared.dataTask(.promise, with: req).validate()
 
-        _ = promise.done { _ in
+        promise.done { _ in
             x.fulfill()
         }.catch {
+            print($0)
             XCTFail($0.localizedDescription)
             x.fulfill()
         }
@@ -39,7 +40,7 @@ class ClanTests: XCTestCase {
         let x = expectation(description: "Find Clan request responds with 200.")
         let promise = URLSession.shared.dataTask(.promise, with: req).validate()
         
-        _ = promise.done { _ in
+        promise.done { _ in
             x.fulfill()
         }.catch {
             XCTFail($0.localizedDescription)
@@ -54,7 +55,7 @@ class ClanTests: XCTestCase {
         let x = expectation(description: "Find Clan request responds with 200.")
         let promise = URLSession.shared.dataTask(.promise, with: req).validate()
 
-        _ = promise.done { _ in
+        promise.done { _ in
             x.fulfill()
         }.catch {
             XCTFail($0.localizedDescription)

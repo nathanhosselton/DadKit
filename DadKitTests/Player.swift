@@ -24,7 +24,7 @@ class PlayerTests: XCTestCase {
         let x = expectation(description: "Find Player request responds with 200.")
         let promise = URLSession.shared.dataTask(.promise, with: req).validate()
 
-        _ = promise.done { _ in
+        promise.done { _ in
             x.fulfill()
         }.catch {
             XCTFail($0.localizedDescription)
