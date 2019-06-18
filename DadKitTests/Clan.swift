@@ -51,7 +51,7 @@ class ClanTests: XCTestCase {
     }
 
     func test_API_FindClanRequestWithSpecialCharactersResponds200() {
-        let req = Bungie.API.getFindClan(withQuery: "!Meow Pew Pew").request
+        let req = Bungie.API.getFindClan(withQuery: "hello!").request
         let x = expectation(description: "Find Clan request responds with 200.")
         let promise = URLSession.shared.dataTask(.promise, with: req).validate()
 
