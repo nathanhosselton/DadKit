@@ -23,10 +23,14 @@ extension Character {
         let indexedCharacters = try root.decode(PlayerCharacters.self, forKey: .characters).data
         let (characterHash, character) = indexedCharacters.sorted(by: mostRecent)[0] //Indexing is safe because of the guard
 
+        guard let emblemUrl = URL(string: "https://bungie.net" + character.emblemPath),
+            let emblemBackgroundUrl = URL(string: "https://bungie.net" + character.emblemBackgroundPath)
+            else { throw Bungie.Error.emblemImageUrlsMissingOrMalformed }
+
         //Map properties from the auto-decoded RawCharacter object
         light = character.light
-        emblemPath = URL(string: "https://bungie.net" + character.emblemPath)!
-        emblemBackgroundPath = URL(string: "https://bungie.net" + character.emblemBackgroundPath)!
+        emblemPath = emblemUrl
+        emblemBackgroundPath = emblemBackgroundUrl
         dateLastPlayed = character.dateLastPlayed
         id = character.characterId
         level = character.levelProgression.level
