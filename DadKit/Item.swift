@@ -60,9 +60,9 @@ public struct Item {
         /// Consumables, cosmetics, and other items we're currently ignoring.
         case other
 
-        internal static var armor: [Slot] = [.helmet, .arms, .chest, .legs]
-        internal static var weapons: [Slot] = [.kinetic, .energy, .heavy]
-        internal static var weaponsAndArmor: [Slot] = armor + weapons
+        internal static var armor: [Slot] { return [.helmet, .arms, .chest, .legs] }
+        internal static var weapons: [Slot] { return  [.kinetic, .energy, .heavy] }
+        internal static var weaponsAndArmor: [Slot] { return armor + weapons }
 
         /// Custom Decodable conformance
         public init(from decoder: Decoder) throws {
