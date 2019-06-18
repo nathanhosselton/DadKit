@@ -21,7 +21,7 @@ extension Clan: Hashable
 
 public extension Bungie {
     /// Gets the specific `Clan` with the provided identifier.
-    public static func getClan(with id: String) -> Promise<Clan> {
+    static func getClan(with id: String) -> Promise<Clan> {
         let req = API.getClan(withId: id).request
 
         return firstly {
@@ -32,7 +32,7 @@ public extension Bungie {
     }
 
     /// Performs a clan search using the provided name.
-    public static func searchForClan(named name: String) -> Promise<Clan> {
+    static func searchForClan(named name: String) -> Promise<Clan> {
         let req = API.getFindClan(withQuery: name).request
         
         return firstly {

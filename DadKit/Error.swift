@@ -1,7 +1,7 @@
 import Foundation
 
 public extension Bungie {
-    public enum Error: Swift.Error, CustomStringConvertible {
+    enum Error: Swift.Error, CustomStringConvertible {
 
         /// Occurs when downloading and forming a `Character.loadout` fails. See `description` for reasons.
         case characterLoadoutIsInTransientState

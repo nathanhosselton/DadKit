@@ -74,7 +74,7 @@ public struct Character: Decodable, SubclassRepresentable {
 
 public extension Character {
     /// A type that represents a `Character`'s class.
-    public enum Class: Int, Decodable {
+    enum Class: Int, Decodable {
         case titan, hunter, warlock, unknown
 
         /// The display name of the class.
@@ -104,7 +104,7 @@ extension Character: Equatable {
 public extension Character {
 
     /// A type representing the Raid Dad loadout of a `Character`.
-    public struct Loadout {
+    struct Loadout {
 
         /// The weapon equipped in the kinetic slot.
         public let kinetic: Item?
@@ -176,7 +176,7 @@ public extension Character {
 public extension Bungie {
     /// Retrieves the given `player`'s most recently used `Character` without making the requests for the `loadout`.
     /// When using this function, the `Loadout` will need to be requested using `Bungie.getLoadout(for:)` and tracked separately.
-    public static func getCurrentCharacterWithoutLoadout(for player: Player) -> Promise<Character> {
+    static func getCurrentCharacterWithoutLoadout(for player: Player) -> Promise<Character> {
         let req = API.getPlayer(withId: player.membershipId, onPlatform: player.platform).request
 
         return firstly {
@@ -187,7 +187,7 @@ public extension Bungie {
     }
 
     /// Retrieves the given `player`'s most recently used `Character`, fully formed, including all `loadout` data.
-    public static func getCurrentCharacter(for player: Player) -> Promise<Character> {
+    static func getCurrentCharacter(for player: Player) -> Promise<Character> {
         return firstly {
             Bungie.getCurrentCharacterWithoutLoadout(for: player)
         }.then(on: .global()) { character in

@@ -28,7 +28,7 @@ extension Member: Hashable
 
 public extension Bungie {
     /// Retreives all clan members in the provided clan.
-    public static func getMembers(in clan: Clan) -> Promise<[Member]> {
+    static func getMembers(in clan: Clan) -> Promise<[Member]> {
         let req = API.getMembers(withClanId: clan.groupId).request
 
         return firstly {

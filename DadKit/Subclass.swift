@@ -24,7 +24,7 @@ protocol SubclassRepresentable {
 public extension Character {
 
     /// A type representing a Character's subclass.
-    public enum Subclass: Decodable, Equatable, Hashable {
+    enum Subclass: Decodable, Equatable, Hashable {
 
         /// A given character's class and subclass combination.
         case solar(Class), arc(Class), void(Class)

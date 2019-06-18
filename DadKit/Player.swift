@@ -37,7 +37,7 @@ extension Player: Hashable
 public extension Bungie {
     /// Performs a search for the given player tag on the provided platform.
     /// - Note: Searches for `.blizzard` players requires inclusion of the trailing hash, e.g. "#1234".
-    public static func searchForPlayer(with tag: String, on platform: Platform = .all) -> Promise<[Player]> {
+    static func searchForPlayer(with tag: String, on platform: Platform = .all) -> Promise<[Player]> {
         let req = API.getFindPlayer(withQuery: tag, onPlatform: platform).request
 
         return firstly {
