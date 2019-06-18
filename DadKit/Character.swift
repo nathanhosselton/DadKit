@@ -67,9 +67,9 @@ public struct Character: Decodable, SubclassRepresentable {
     //This character's active tree for their `Subclass`.
     internal let tree: Subclass.Tree
     //Meta information for the currently euipped items to be used to construct the `loadout`.
-    internal let equipment: [CharacterEquipment.Equipment.Item]
+    internal let equipment: [Int: CharacterEquipment.Equipment.Item]
     //Instance information for the currently equipped items to be used to construct the `loadout`.
-    internal let itemInstances: [ItemComponents.Instances.Item]
+    internal let itemInstances: [Int: ItemComponents.Instances.Item]
 }
 
 public extension Character {

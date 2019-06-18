@@ -95,13 +95,13 @@ extension Item: Hashable
 
 extension Bungie {
     /// Gets a `RawItem` given an item hash.
-    private static func getItem(with id: Int) -> Promise<RawItem> {
+    private static func getItem(with id: Int) -> Promise<(Int, RawItem)> {
         let req = API.getItem(withId: String(id)).request
 
         return firstly {
             URLSession.shared.dataTask(.promise, with: req).validate()
         }.map(on: .global()) { data, _ in
-            try JSONDecoder().decode(MetaItemResponse.self, from: data).Response
+            (id, try JSONDecoder().decode(MetaItemResponse.self, from: data).Response)
         }
     }
 
@@ -109,18 +109,17 @@ extension Bungie {
     /// `Bungie.getCurrentCharacterWithoutLoadout(for:)`.
     /// - SeeAlso: `Bungie.getCurrentCharacterWithoutLoadout(for:)`
     public static func getLoadout(for character: Character) -> Promise<Character.Loadout> {
-        let itemPromises = character.equipment.map({ $0.itemHash }).map(Bungie.getItem)
+        let itemPromises = character.equipment.keys.map(Bungie.getItem)
 
         return firstly {
             when(fulfilled: itemPromises)
-        }.map(on: .global()) { rawItems in
-            //FIXME: Needs test. Should always return all 3 weapons types and an exotic armor.
-            rawItems.filter { $0.isWeapon || $0.isExoticArmor }.enumerated()
-        }.mapValues(on: .global()) { offset, rawItem in
-            //FIXME: Precondition: Elements of `equipment` and `instances` must be parallel, a condition supplied by Character.init(from:)
-            (rawItem, character.equipment[offset], character.itemInstances[offset])
-        }.compactMapValues(on: .global()) {
-            Item(from: $0, equip: $1, instance: $2)
+        }.map { rawItems in
+            rawItems.filter { $1.isWeapon || $1.isExoticArmor }
+        }.compactMapValues { itemHash, rawItem in
+            guard let equip = character.equipment[itemHash],
+                let instance = character.itemInstances[itemHash]
+                else { throw Bungie.Error.apiReturnedIncongruousCharacterLoadoutInformation }
+            return Item(from: rawItem, equip: equip, instance: instance)
         }.map(on: .global()) { items in
             Character.Loadout(with: items)
         }
