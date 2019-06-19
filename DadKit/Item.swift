@@ -40,13 +40,10 @@ public struct Item {
 
     /// A type representing the levels of rarity associated with items.
     public enum Tier: Int, Decodable {
-        case uncommon //unknown
-        case common = 2395677314
-        case rare = 2127292149
-        case legendary = 4008398120
-        case exotic = 2759499571
-        /// One of these represents uncommon. Regardless, we don't really care.
-        case basic0 = 3772930460, basic1 = 3340296461, basic6 = 1801258597
+        /// Irrelevant tier. Exists for `Decodable` conformance.
+        case unknown, currency
+        /// Item rarity signifier.
+        case common, uncommon, rare, legendary, exotic
     }
 
     /// A type representing the inventory slots in which items may reside.
@@ -94,7 +91,7 @@ public struct Item {
         damageType = instance.damageType
         ammoType = rawItem.equippingBlock.ammoType
         power = powerLevel
-        tier = rawItem.inventory.tierTypeHash
+        tier = rawItem.inventory.tierType
         isFullyMasterworked = equip.state.contains(.masterwork)
         slot = rawItem.inventory.bucketTypeHash
     }
@@ -159,7 +156,7 @@ struct RawItem: Decodable {
     let equippingBlock: EquippingBlock
 
     var isExoticArmor: Bool {
-        return (inventory.bucketTypeHash, inventory.tierTypeHash) == Item.exoticArmor
+        return (inventory.bucketTypeHash, inventory.tierType) == Item.exoticArmor
     }
 
     var isWeapon: Bool {
@@ -172,7 +169,7 @@ struct RawItem: Decodable {
     }
 
     struct Inventory: Decodable {
-        let tierTypeHash: Item.Tier
+        let tierType: Item.Tier
         let bucketTypeHash: Item.Slot
     }
 
