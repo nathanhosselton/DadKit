@@ -238,10 +238,10 @@ struct CharacterEquipment: Decodable {
             struct State: OptionSet, Decodable {
                 let rawValue: UInt32
 
-                static let none         = State(rawValue: 1 << 0)
-                static let locked       = State(rawValue: 1 << 1)
-                static let tracked      = State(rawValue: 1 << 2)
-                static let masterwork   = State(rawValue: 1 << 4)
+                static let none         = State(rawValue: 0)
+                static let locked       = State(rawValue: 1 << 0)
+                static let tracked      = State(rawValue: 1 << 1)
+                static let masterwork   = State(rawValue: 1 << 2)
             }
         }
     }
