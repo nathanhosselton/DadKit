@@ -14,7 +14,7 @@
     <a title="Bungie Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (74% documented)</p>
+        <p><a href="../index.html"> Docs</a> (86% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -70,6 +70,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Item/Slot.html">– Slot</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Item/AmmoType.html">– AmmoType</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Member.html">Member</a>
@@ -235,9 +238,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6DadKit6BungieO33getCurrentCharacterWithoutLoadout3for07PromiseB00J0CyAA0F0VGAA6PlayerV_tFZ"></a>
+                    <a name="/s:6DadKit6BungieO33getCurrentCharacterWithoutLoadoutyXeAA6PlayerV_tcACmFZ"></a>
                     <a name="//apple_ref/swift/Method/getCurrentCharacterWithoutLoadout(for:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6DadKit6BungieO33getCurrentCharacterWithoutLoadout3for07PromiseB00J0CyAA0F0VGAA6PlayerV_tFZ">getCurrentCharacterWithoutLoadout(for:)</a>
+                    <a class="token" href="#/s:6DadKit6BungieO33getCurrentCharacterWithoutLoadoutyXeAA6PlayerV_tcACmFZ">getCurrentCharacterWithoutLoadout(for:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -246,14 +249,14 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Retrieves the given <code>player</code>&lsquo;s most recently used <code><a href="../Structs/Character.html">Character</a></code> without making the requests for the <code>loadout</code>.
-When using this function, the <code>Loadout</code> will need to be requested using <code><a href="../Enums/Bungie.html#/s:6DadKit6BungieO10getLoadout3for07PromiseB00G0CyAA9CharacterV0E0VGAJ_tFZ">Bungie.getLoadout(for:)</a></code> and tracked separately.</p>
+When using this function, the <code>Loadout</code> will need to be requested using <code><a href="../Enums/Bungie.html#/s:6DadKit6BungieO10getLoadoutyXeAA9CharacterV_tcACmFZ">Bungie.getLoadout(for:)</a></code> and tracked separately.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getCurrentCharacterWithoutLoadout</span><span class="p">(</span><span class="k">for</span> <span class="nv">player</span><span class="p">:</span> <span class="kt"><a href="../Structs/Player.html">Player</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Character.html">Character</a></span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">getCurrentCharacterWithoutLoadout</span><span class="p">(</span><span class="k">for</span> <span class="nv">player</span><span class="p">:</span> <span class="kt"><a href="../Structs/Player.html">Player</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Character.html">Character</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -263,9 +266,9 @@ When using this function, the <code>Loadout</code> will need to be requested usi
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6DadKit6BungieO19getCurrentCharacter3for07PromiseB00H0CyAA0F0VGAA6PlayerV_tFZ"></a>
+                    <a name="/s:6DadKit6BungieO19getCurrentCharacteryXeAA6PlayerV_tcACmFZ"></a>
                     <a name="//apple_ref/swift/Method/getCurrentCharacter(for:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6DadKit6BungieO19getCurrentCharacter3for07PromiseB00H0CyAA0F0VGAA6PlayerV_tFZ">getCurrentCharacter(for:)</a>
+                    <a class="token" href="#/s:6DadKit6BungieO19getCurrentCharacteryXeAA6PlayerV_tcACmFZ">getCurrentCharacter(for:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -280,7 +283,7 @@ When using this function, the <code>Loadout</code> will need to be requested usi
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getCurrentCharacter</span><span class="p">(</span><span class="k">for</span> <span class="nv">player</span><span class="p">:</span> <span class="kt"><a href="../Structs/Player.html">Player</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Character.html">Character</a></span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">getCurrentCharacter</span><span class="p">(</span><span class="k">for</span> <span class="nv">player</span><span class="p">:</span> <span class="kt"><a href="../Structs/Player.html">Player</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Character.html">Character</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -301,9 +304,9 @@ When using this function, the <code>Loadout</code> will need to be requested usi
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6DadKit6BungieO7getClan4with07PromiseB00G0CyAA0E0VGSS_tFZ"></a>
+                    <a name="/s:6DadKit6BungieO7getClanyXeSS_tcACmFZ"></a>
                     <a name="//apple_ref/swift/Method/getClan(with:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6DadKit6BungieO7getClan4with07PromiseB00G0CyAA0E0VGSS_tFZ">getClan(with:)</a>
+                    <a class="token" href="#/s:6DadKit6BungieO7getClanyXeSS_tcACmFZ">getClan(with:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -318,7 +321,7 @@ When using this function, the <code>Loadout</code> will need to be requested usi
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getClan</span><span class="p">(</span><span class="n">with</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Clan.html">Clan</a></span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">getClan</span><span class="p">(</span><span class="n">with</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Clan.html">Clan</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -328,9 +331,9 @@ When using this function, the <code>Loadout</code> will need to be requested usi
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6DadKit6BungieO13searchForClan5named07PromiseB00H0CyAA0F0VGSS_tFZ"></a>
+                    <a name="/s:6DadKit6BungieO13searchForClanyXeSS_tcACmFZ"></a>
                     <a name="//apple_ref/swift/Method/searchForClan(named:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6DadKit6BungieO13searchForClan5named07PromiseB00H0CyAA0F0VGSS_tFZ">searchForClan(named:)</a>
+                    <a class="token" href="#/s:6DadKit6BungieO13searchForClanyXeSS_tcACmFZ">searchForClan(named:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -345,7 +348,7 @@ When using this function, the <code>Loadout</code> will need to be requested usi
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">searchForClan</span><span class="p">(</span><span class="n">named</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Clan.html">Clan</a></span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">searchForClan</span><span class="p">(</span><span class="n">named</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Clan.html">Clan</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -377,7 +380,7 @@ When using this function, the <code>Loadout</code> will need to be requested usi
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Error</span> <span class="p">:</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt">Error</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">Error</span> <span class="p">:</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt">Error</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span><span class="p">,</span> <span class="kt">LocalizedError</span></code></pre>
 
                         </div>
                       </div>
@@ -398,9 +401,9 @@ When using this function, the <code>Loadout</code> will need to be requested usi
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6DadKit6BungieO10getLoadout3for07PromiseB00G0CyAA9CharacterV0E0VGAJ_tFZ"></a>
+                    <a name="/s:6DadKit6BungieO10getLoadoutyXeAA9CharacterV_tcACmFZ"></a>
                     <a name="//apple_ref/swift/Method/getLoadout(for:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6DadKit6BungieO10getLoadout3for07PromiseB00G0CyAA9CharacterV0E0VGAJ_tFZ">getLoadout(for:)</a>
+                    <a class="token" href="#/s:6DadKit6BungieO10getLoadoutyXeAA9CharacterV_tcACmFZ">getLoadout(for:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -409,10 +412,10 @@ When using this function, the <code>Loadout</code> will need to be requested usi
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Retrieves the complete <code>Loadout</code> for a given <code>character</code>. This function is only necessary when using
-<code><a href="../Enums/Bungie.html#/s:6DadKit6BungieO33getCurrentCharacterWithoutLoadout3for07PromiseB00J0CyAA0F0VGAA6PlayerV_tFZ">Bungie.getCurrentCharacterWithoutLoadout(for:)</a></code>.</p>
+<code><a href="../Enums/Bungie.html#/s:6DadKit6BungieO33getCurrentCharacterWithoutLoadoutyXeAA6PlayerV_tcACmFZ">Bungie.getCurrentCharacterWithoutLoadout(for:)</a></code>.</p>
 <div class="aside aside-see-also">
     <p class="aside-title">See also</p>
-    <code><a href="../Enums/Bungie.html#/s:6DadKit6BungieO33getCurrentCharacterWithoutLoadout3for07PromiseB00J0CyAA0F0VGAA6PlayerV_tFZ">Bungie.getCurrentCharacterWithoutLoadout(for:)</a></code>
+    <code><a href="../Enums/Bungie.html#/s:6DadKit6BungieO33getCurrentCharacterWithoutLoadoutyXeAA6PlayerV_tcACmFZ">Bungie.getCurrentCharacterWithoutLoadout(for:)</a></code>
 
 </div>
 
@@ -442,9 +445,9 @@ When using this function, the <code>Loadout</code> will need to be requested usi
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6DadKit6BungieO10getMembers2in07PromiseB00G0CySayAA6MemberVGGAA4ClanV_tFZ"></a>
+                    <a name="/s:6DadKit6BungieO10getMembersyXeAA4ClanV_tcACmFZ"></a>
                     <a name="//apple_ref/swift/Method/getMembers(in:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6DadKit6BungieO10getMembers2in07PromiseB00G0CySayAA6MemberVGGAA4ClanV_tFZ">getMembers(in:)</a>
+                    <a class="token" href="#/s:6DadKit6BungieO10getMembersyXeAA4ClanV_tcACmFZ">getMembers(in:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -459,7 +462,7 @@ When using this function, the <code>Loadout</code> will need to be requested usi
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getMembers</span><span class="p">(</span><span class="k">in</span> <span class="nv">clan</span><span class="p">:</span> <span class="kt"><a href="../Structs/Clan.html">Clan</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/Member.html">Member</a></span><span class="p">]</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">getMembers</span><span class="p">(</span><span class="k">in</span> <span class="nv">clan</span><span class="p">:</span> <span class="kt"><a href="../Structs/Clan.html">Clan</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/Member.html">Member</a></span><span class="p">]</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -480,9 +483,9 @@ When using this function, the <code>Loadout</code> will need to be requested usi
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6DadKit6BungieO15searchForPlayer4with2on07PromiseB00I0CySayAA0F0VGGSS_AC8PlatformOtFZ"></a>
+                    <a name="/s:6DadKit6BungieO15searchForPlayeryXeSS_AC8PlatformOtcACmFZ"></a>
                     <a name="//apple_ref/swift/Method/searchForPlayer(with:on:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6DadKit6BungieO15searchForPlayer4with2on07PromiseB00I0CySayAA0F0VGGSS_AC8PlatformOtFZ">searchForPlayer(with:on:)</a>
+                    <a class="token" href="#/s:6DadKit6BungieO15searchForPlayeryXeSS_AC8PlatformOtcACmFZ">searchForPlayer(with:on:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -502,7 +505,7 @@ When using this function, the <code>Loadout</code> will need to be requested usi
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">searchForPlayer</span><span class="p">(</span><span class="n">with</span> <span class="nv">tag</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">on</span> <span class="nv">platform</span><span class="p">:</span> <span class="kt"><a href="../Enums/Bungie/Platform.html">Platform</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">all</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/Player.html">Player</a></span><span class="p">]</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">searchForPlayer</span><span class="p">(</span><span class="n">with</span> <span class="nv">tag</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">on</span> <span class="nv">platform</span><span class="p">:</span> <span class="kt"><a href="../Enums/Bungie/Platform.html">Platform</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">all</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/Player.html">Player</a></span><span class="p">]</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -514,8 +517,8 @@ When using this function, the <code>Loadout</code> will need to be requested usi
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-12-04)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2019 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2019-06-19)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

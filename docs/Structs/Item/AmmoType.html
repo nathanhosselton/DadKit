@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Tier Enumeration Reference</title>
+    <title>AmmoType Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/Tier" class="dashAnchor"></a>
-    <a title="Tier Enumeration Reference"></a>
+    <a name="//apple_ref/swift/Enum/AmmoType" class="dashAnchor"></a>
+    <a title="AmmoType Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../../index.html"> Docs</a> (86% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../../index.html"> Reference</a>
         <img id="carat" src="../../img/carat.png" />
-        Tier Enumeration Reference
+        AmmoType Enumeration Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -87,14 +87,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Tier</h1>
+            <h1>AmmoType</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Tier</span> <span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="kt">Decodable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">AmmoType</span> <span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="kt">Decodable</span></code></pre>
 
                 </div>
               </div>
-            <p>A type representing the levels of rarity associated with items.</p>
+            <p>Undocumented</p>
 
           </section>
           <section class="section task-group-section">
@@ -103,9 +103,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6DadKit4ItemV4TierO7unknownyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/unknown" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6DadKit4ItemV4TierO7unknownyA2EmF">unknown</a>
+                    <a name="/s:6DadKit4ItemV8AmmoTypeO4noneyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/none" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DadKit4ItemV8AmmoTypeO4noneyA2EmF">none</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -113,14 +113,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Irrelevant tier. Exists for <code>Decodable</code> conformance.</p>
+                        <p>Used when the item is not a weapon.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">unknown</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="k">none</span></code></pre>
 
                         </div>
                       </div>
@@ -130,9 +130,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6DadKit4ItemV4TierO8currencyyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/currency" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6DadKit4ItemV4TierO8currencyyA2EmF">currency</a>
+                    <a name="/s:6DadKit4ItemV8AmmoTypeO7primaryyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/primary" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DadKit4ItemV8AmmoTypeO7primaryyA2EmF">primary</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -140,13 +140,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Indicates the weapon uses primary (white) ammo.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">currency</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">primary</span></code></pre>
 
                         </div>
                       </div>
@@ -156,9 +157,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6DadKit4ItemV4TierO6commonyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/common" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6DadKit4ItemV4TierO6commonyA2EmF">common</a>
+                    <a name="/s:6DadKit4ItemV8AmmoTypeO7specialyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/special" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DadKit4ItemV8AmmoTypeO7specialyA2EmF">special</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -166,40 +167,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Item rarity signifier.</p>
+                        <p>Indicates the weapon uses special (green) ammo.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">common</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:6DadKit4ItemV4TierO8uncommonyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/uncommon" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6DadKit4ItemV4TierO8uncommonyA2EmF">uncommon</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">uncommon</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">special</span></code></pre>
 
                         </div>
                       </div>
@@ -209,9 +184,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6DadKit4ItemV4TierO4rareyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/rare" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6DadKit4ItemV4TierO4rareyA2EmF">rare</a>
+                    <a name="/s:6DadKit4ItemV8AmmoTypeO5heavyyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/heavy" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6DadKit4ItemV8AmmoTypeO5heavyyA2EmF">heavy</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -219,65 +194,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">rare</span></code></pre>
+                        <p>Indicates the weapon uses heavy (purple) ammo.</p>
 
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:6DadKit4ItemV4TierO9legendaryyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/legendary" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6DadKit4ItemV4TierO9legendaryyA2EmF">legendary</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">legendary</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:6DadKit4ItemV4TierO6exoticyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/exotic" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6DadKit4ItemV4TierO6exoticyA2EmF">exotic</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">exotic</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">heavy</span></code></pre>
 
                         </div>
                       </div>
