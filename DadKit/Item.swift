@@ -48,15 +48,15 @@ public struct Item {
 
     /// A type representing the inventory slots in which items may reside.
     public enum Slot: Int, Decodable {
+        /// The slot which represents the chosen subclass.
         case subclass = 3284755031
-        case kinetic = 1498876634
-        case energy = 2465295065
-        case heavy = 953998645
-        case helmet = 3448274439
-        case arms = 3551918588
-        case chest = 14239492
-        case legs = 20886954
-        case classArmor = 1585787867
+
+        /// Weapon slot.
+        case kinetic = 1498876634, energy = 2465295065, heavy = 953998645
+
+        /// Armor slot.
+        case helmet = 3448274439, arms = 3551918588, chest = 14239492, legs = 20886954, classArmor = 1585787867
+
         /// Consumables, cosmetics, and other items we're currently ignoring.
         case other
 
