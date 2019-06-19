@@ -18,6 +18,9 @@ public struct Item {
     /// The damage type of this item, e.g. Kinectic, Solar, etc.
     public let damageType: Item.DamageType
 
+    /// The ammo type used by this item if it is a weapon, i.e. primary, special, heavy.
+    public let ammoType: AmmoType
+
     /// The power level of this item.
     public let power: Int
 
@@ -71,6 +74,17 @@ public struct Item {
         }
     }
 
+    public enum AmmoType: Int, Decodable {
+        /// Used when the item is not a weapon.
+        case none
+        /// Indicates the weapon uses primary (white) ammo.
+        case primary
+        /// Indicates the weapon uses special (green) ammo.
+        case special
+        /// Indicates the weapon uses heavy (purple) ammo.
+        case heavy
+    }
+
     /// Builds the fully constructed `Item` from its various components across the API.
     fileprivate init?(from rawItem: RawItem, equip: CharacterEquipment.Equipment.Item, instance: ItemComponents.Instances.Item) {
         guard let powerLevel = instance.primaryStat?.value else { return nil }
@@ -78,6 +92,7 @@ public struct Item {
         name = rawItem.displayProperties.name
         icon = URL(string: "https://bungie.net" + rawItem.displayProperties.icon)!
         damageType = instance.damageType
+        ammoType = rawItem.equippingBlock.ammoType
         power = powerLevel
         tier = rawItem.inventory.tierTypeHash
         isFullyMasterworked = equip.state.contains(.masterwork)
@@ -141,6 +156,7 @@ struct RawItem: Decodable {
     let hash: Int
     let displayProperties: DisplayProperties
     let inventory: Inventory
+    let equippingBlock: EquippingBlock
 
     var isExoticArmor: Bool {
         return (inventory.bucketTypeHash, inventory.tierTypeHash) == Item.exoticArmor
@@ -158,5 +174,9 @@ struct RawItem: Decodable {
     struct Inventory: Decodable {
         let tierTypeHash: Item.Tier
         let bucketTypeHash: Item.Slot
+    }
+
+    struct EquippingBlock: Decodable {
+        let ammoType: Item.AmmoType
     }
 }
