@@ -2,35 +2,35 @@
   "warnings": [
     {
       "file": "/Users/n/Dropbox/Development/Xcode/NathanHosselton/DadKit/DadKit/Bungie.swift",
-      "line": 80,
+      "line": 106,
       "symbol": "Bungie.Platform.blizzard",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/n/Dropbox/Development/Xcode/NathanHosselton/DadKit/DadKit/Bungie.swift",
-      "line": 80,
+      "line": 106,
       "symbol": "Bungie.Platform.none",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/n/Dropbox/Development/Xcode/NathanHosselton/DadKit/DadKit/Bungie.swift",
-      "line": 80,
+      "line": 106,
       "symbol": "Bungie.Platform.psn",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/n/Dropbox/Development/Xcode/NathanHosselton/DadKit/DadKit/Bungie.swift",
-      "line": 80,
+      "line": 106,
       "symbol": "Bungie.Platform.xbox",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/n/Dropbox/Development/Xcode/NathanHosselton/DadKit/DadKit/Bungie.swift",
-      "line": 98,
+      "line": 124,
       "symbol": "Bungie.Platform.init(rawValue:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -79,49 +79,49 @@
     },
     {
       "file": "/Users/n/Dropbox/Development/Xcode/NathanHosselton/DadKit/DadKit/Item.swift",
-      "line": 38,
+      "line": 42,
       "symbol": "Item.DamageType.arc",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/n/Dropbox/Development/Xcode/NathanHosselton/DadKit/DadKit/Item.swift",
-      "line": 38,
+      "line": 42,
       "symbol": "Item.DamageType.kinetic",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/n/Dropbox/Development/Xcode/NathanHosselton/DadKit/DadKit/Item.swift",
-      "line": 38,
+      "line": 42,
       "symbol": "Item.DamageType.none",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/n/Dropbox/Development/Xcode/NathanHosselton/DadKit/DadKit/Item.swift",
-      "line": 38,
+      "line": 42,
       "symbol": "Item.DamageType.raid",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/n/Dropbox/Development/Xcode/NathanHosselton/DadKit/DadKit/Item.swift",
-      "line": 38,
+      "line": 42,
       "symbol": "Item.DamageType.solar",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/n/Dropbox/Development/Xcode/NathanHosselton/DadKit/DadKit/Item.swift",
-      "line": 38,
+      "line": 42,
       "symbol": "Item.DamageType.void",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/n/Dropbox/Development/Xcode/NathanHosselton/DadKit/DadKit/Item.swift",
-      "line": 74,
+      "line": 78,
       "symbol": "Item.AmmoType",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
