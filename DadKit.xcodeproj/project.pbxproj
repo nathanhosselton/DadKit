@@ -232,11 +232,11 @@
 				TargetAttributes = {
 					0D56C5EA21A0D8D900FB680E = {
 						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 					};
 					0D56C5F321A0D8D900FB680E = {
 						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -246,6 +246,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 0D56C5E121A0D8D900FB680E;
 			productRefGroup = 0D56C5EC21A0D8D900FB680E /* Products */;
