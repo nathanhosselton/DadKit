@@ -33,6 +33,10 @@ public struct Item {
     /// The inventory slot in which this item resides, e.g. Kinetic, Helmet, etc.
     public let slot: Slot
 
+    /// Indicates that the item's manifest information is not yet in the public API. All fields on the item will
+    /// still be present, but are not guaranteed to contain useful information. Display the item accordingly.
+    public let isRedacted: Bool
+
     /// A type representing the various types of damage that a weapon can deal.
     public enum DamageType: Int, Decodable {
         case none, kinetic, arc, solar, void, raid
@@ -84,16 +88,18 @@ public struct Item {
 
     /// Builds the fully constructed `Item` from its various components across the API.
     fileprivate init?(from rawItem: RawItem, equip: CharacterEquipment.Equipment.Item, instance: ItemComponents.Instances.Item) {
+        // I'm assuming this will never actually be `nil` by the time the item instance arrives at this point
         guard let powerLevel = instance.primaryStat?.value else { return nil }
 
         name = rawItem.displayProperties.name
         icon = URL(string: "https://bungie.net" + rawItem.displayProperties.icon)!
         damageType = instance.damageType
-        ammoType = rawItem.equippingBlock.ammoType
+        ammoType = rawItem.equippingBlock?.ammoType ?? .none //This will be nil if item is redacted
         power = powerLevel
         tier = rawItem.inventory.tierType
         isFullyMasterworked = equip.state.contains(.masterwork)
         slot = rawItem.inventory.bucketTypeHash
+        isRedacted = rawItem.redacted
     }
 }
 
@@ -106,7 +112,7 @@ extension Item: Hashable
 //MARK: API Request
 
 extension Bungie {
-    /// Gets a `RawItem` given an item hash.
+    /// Gets a `RawItem` representing static item information from Destiny item manifest with the provided item hash.
     private static func getItem(with id: Int) -> Promise<(Int, RawItem)> {
         let request = API.getItem(withId: String(id)).request
 
@@ -153,7 +159,8 @@ struct RawItem: Decodable {
     let hash: Int
     let displayProperties: DisplayProperties
     let inventory: Inventory
-    let equippingBlock: EquippingBlock
+    let equippingBlock: EquippingBlock?
+    let redacted: Bool
 
     var isExoticArmor: Bool {
         return (inventory.bucketTypeHash, inventory.tierType) == Item.exoticArmor
