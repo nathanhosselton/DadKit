@@ -177,10 +177,10 @@ public extension Bungie {
     /// Retrieves the given `player`'s most recently used `Character` without making the requests for the `loadout`.
     /// When using this function, the `Loadout` will need to be requested using `Bungie.getLoadout(for:)` and tracked separately.
     static func getCurrentCharacterWithoutLoadout(for player: Player) -> Promise<Character> {
-        let req = API.getPlayer(withId: player.membershipId, onPlatform: player.platform).request
+        let request = API.getPlayer(withId: player.membershipId, onPlatform: player.platform).request
 
         return firstly {
-            URLSession.shared.dataTask(.promise, with: req).validate()
+            Bungie.send(request)
         }.map(on: .global()) { data, _ in
             try Bungie.decoder.decode(PlayerMetaResponse.self, from: data).Response
         }

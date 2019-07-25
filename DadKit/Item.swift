@@ -108,10 +108,10 @@ extension Item: Hashable
 extension Bungie {
     /// Gets a `RawItem` given an item hash.
     private static func getItem(with id: Int) -> Promise<(Int, RawItem)> {
-        let req = API.getItem(withId: String(id)).request
+        let request = API.getItem(withId: String(id)).request
 
         return firstly {
-            URLSession.shared.dataTask(.promise, with: req).validate()
+            Bungie.send(request)
         }.map(on: .global()) { data, _ in
             (id, try JSONDecoder().decode(MetaItemResponse.self, from: data).Response)
         }

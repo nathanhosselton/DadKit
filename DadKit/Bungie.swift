@@ -1,4 +1,5 @@
 import Foundation
+import PMKFoundation
 
 /// Bungo.
 public enum Bungie {
@@ -73,6 +74,31 @@ public enum Bungie {
 
             return url
         }
+
+        //MARK: API Response
+
+        struct Error: Decodable {
+            /// The Bungie.net API error code
+            let ErrorCode: Code
+            /// Unused currently.
+            let ThrottleSeconds: Int
+            /// Unused currently.
+            let ErrorStatus: String
+            /// Unused currently.
+            let Message: String
+            /// Unused currently.
+            let MessageData: MessageData
+
+            enum Code: Int, Decodable {
+                case none, success
+                case systemDisabled = 5
+                case other //we don't care about any others right now
+            }
+        }
+
+        /// Unused currently.
+        struct MessageData: Decodable
+        {}
     }
 
     /// A type representing the available platforms for Destiny 2.
@@ -98,6 +124,20 @@ public enum Bungie {
         public init(rawValue: Int?) {
             guard let raw = rawValue else { self = .none; return }
             self = Platform(rawValue: raw) ?? .none
+        }
+    }
+}
+
+extension Bungie {
+    static func send(_ request: URLRequest) -> Promise<(data: Data, response: URLResponse)> {
+        return firstly {
+            URLSession.shared.dataTask(.promise, with: request)
+        }.then { data, resp -> Promise<(data: Data, response: URLResponse)> in
+            // Check if Bungie.net is currently down before checking other errors or forwarding data to caller.
+            if let error = try? Bungie.decoder.decode(API.Error.self, from: data), error.ErrorCode == .systemDisabled {
+                throw Bungie.Error.systemDisabledForMaintenance
+            }
+            return Promise.value((data, resp)).validate()
         }
     }
 }

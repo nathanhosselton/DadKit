@@ -22,10 +22,10 @@ extension Clan: Hashable
 public extension Bungie {
     /// Gets the specific `Clan` with the provided identifier.
     static func getClan(with id: String) -> Promise<Clan> {
-        let req = API.getClan(withId: id).request
+        let request = API.getClan(withId: id).request
 
         return firstly {
-            URLSession.shared.dataTask(.promise, with: req).validate()
+            Bungie.send(request)
         }.map(on: .global()) { data, _ in
             try Bungie.decoder.decode(ClanMetaResponse.self, from: data).Response.detail
         }
@@ -33,12 +33,11 @@ public extension Bungie {
 
     /// Performs a clan search using the provided name.
     static func searchForClan(named name: String) -> Promise<Clan> {
-        let req = API.getFindClan(withQuery: name).request
+        let request = API.getFindClan(withQuery: name).request
         
         return firstly {
-            URLSession.shared.dataTask(.promise, with: req).validate()
+            Bungie.send(request)
         }.map(on: .global()) { data, _ in
-            //TODO: Error state?
             try Bungie.decoder.decode(ClanMetaResponse.self, from: data).Response.detail
         }
     }

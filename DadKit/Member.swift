@@ -29,10 +29,10 @@ extension Member: Hashable
 public extension Bungie {
     /// Retreives all clan members in the provided clan.
     static func getMembers(in clan: Clan) -> Promise<[Member]> {
-        let req = API.getMembers(withClanId: clan.groupId).request
+        let request = API.getMembers(withClanId: clan.groupId).request
 
         return firstly {
-            URLSession.shared.dataTask(.promise, with: req).validate()
+            Bungie.send(request)
         }.map(on: .global()) { data, _ in
             try Bungie.decoder.decode(MemberMetaResponse.self, from: data).Response.results
         }

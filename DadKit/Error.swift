@@ -13,6 +13,9 @@ public extension Bungie {
         /// Occurs when one or more of the character's emblem image paths come back missing or malformed.
         case emblemImageUrlsMissingOrMalformed
 
+        /// Occurs when Bungie.net or its API is down for maintenance.
+        case systemDisabledForMaintenance
+
         /// Occurs when at least one of the requested character's sets of equipment fields is returned incomplete or
         /// otherwise conflictory to its counterparts. This is a Bungie.net API issue.
         ///
@@ -35,6 +38,8 @@ public extension Bungie {
                 return "DadKit: One or more of the character's emblem image paths came back missing or malformed."
             case .apiReturnedIncongruousCharacterLoadoutInformation:
                 return "DadKit: At least one of the requested character's sets of equipment fields was returned incomplete or otherwise conflictory to its counterparts. This is a Bungie.net API issue."
+            case .systemDisabledForMaintenance:
+                return "DadKit: Bungie.net or its API is currently down for maintenance. Check help.bungie.net for status updates."
             }
         }
 

@@ -31,5 +31,14 @@ class BungieTests: XCTestCase {
         }
 
         wait(for: [x], timeout: 10)
+
+    func test_DecodeApiError() {
+        let data = "{\"ErrorCode\": 5,\"ThrottleSeconds\": 0,\"ErrorStatus\": \"SystemDisabled\",\"Message\": \"This system is temporarily disabled for maintenance.\",\"MessageData\": {}}".data(using: .utf8)!
+
+        do {
+            _ = try Bungie.decoder.decode(Bungie.API.Error.self, from: data)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
     }
 }
