@@ -1,6 +1,9 @@
 import XCTest
 @testable import DadKit
+import PromiseKit
 import PMKFoundation
+
+public var ENV_API_KEY = ""
 
 class BungieTests: XCTestCase {
 
@@ -31,6 +34,7 @@ class BungieTests: XCTestCase {
         }
 
         wait(for: [x], timeout: 10)
+    }
 
     func test_DecodeApiError() {
         let data = "{\"ErrorCode\": 5,\"ThrottleSeconds\": 0,\"ErrorStatus\": \"SystemDisabled\",\"Message\": \"This system is temporarily disabled for maintenance.\",\"MessageData\": {}}".data(using: .utf8)!
@@ -41,4 +45,5 @@ class BungieTests: XCTestCase {
             XCTFail(error.localizedDescription)
         }
     }
+
 }

@@ -20,7 +20,7 @@ class PlayerTests: XCTestCase {
     }
 
     func test_API_FindPlayerRequestResponds200() {
-        let req = Bungie.API.getFindPlayer(withQuery: "WeirdRituals#1656", onPlatform: .blizzard).request
+        let req = Bungie.API.getFindPlayer(withQuery: "WeirdRituals#1656", onPlatform: .steam).request
         let x = expectation(description: "Find Player request responds with 200.")
         let promise = URLSession.shared.dataTask(.promise, with: req).validate()
 

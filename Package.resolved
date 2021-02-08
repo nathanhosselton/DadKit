@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "PMKFoundation",
+        "repositoryURL": "https://github.com/b3ll/Foundation.git",
+        "state": {
+          "branch": "master",
+          "revision": "47dc41364d2b20122510e56b73fe2a13c904a82e",
+          "version": null
+        }
+      },
+      {
+        "package": "PromiseKit",
+        "repositoryURL": "https://github.com/mxcl/PromiseKit",
+        "state": {
+          "branch": null,
+          "revision": "aea48ea1855f5d82e2dffa6027afce3aab8f3dd7",
+          "version": "6.13.3"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

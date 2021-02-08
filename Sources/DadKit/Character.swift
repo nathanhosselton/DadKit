@@ -1,4 +1,5 @@
 import Foundation
+import PromiseKit
 import PMKFoundation
 
 /// A type for represeting an in-game character for Destiny 2.
