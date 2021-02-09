@@ -14,7 +14,7 @@ public struct Character: Decodable, SubclassRepresentable {
     /// This character's subclass, i.e. Solar, Arc, or Void.
     /// - Note: This object is provided for convenience and has no public accessors of its own.
     /// - SeeAlso: `subclassName`, `subclassPath`, `subclassTree`, and `subclassSuper`
-    public let subclass: Subclass
+    internal(set) public var subclass: Subclass
 
     /// The name for this character's chosen Subclass. E.g. "Gunslinger".
     public var subclassName: String {
@@ -195,6 +195,7 @@ public extension Bungie {
             Bungie.getLoadout(for: character).map { (character, $0) }
         }.map(on: .global()) { character, loadout in
             var character = character
+            character.subclass = .stasis(character.classType)
             character.loadout = loadout
             return character
         }

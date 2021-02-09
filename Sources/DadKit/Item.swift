@@ -40,7 +40,7 @@ public struct Item {
 
     /// A type representing the various types of damage that a weapon can deal.
     public enum DamageType: Int, Decodable {
-        case none, kinetic, arc, solar, void, raid
+        case none, kinetic, arc, solar, void, raid, stasis
     }
 
     /// A type representing the levels of rarity associated with items.
@@ -162,6 +162,7 @@ struct RawItem: Decodable {
     let inventory: Inventory
     let equippingBlock: EquippingBlock?
     let redacted: Bool
+    let talentGrid: TalentGrid?
 
     var isExoticArmor: Bool {
         return (inventory.bucketTypeHash, inventory.tierType) == Item.exoticArmor
@@ -169,6 +170,10 @@ struct RawItem: Decodable {
 
     var isWeapon: Bool {
         return Item.Slot.weapons.contains(inventory.bucketTypeHash)
+    }
+
+    var isSubclass: Bool {
+        return Item.Slot.subclass == inventory.bucketTypeHash
     }
 
     struct DisplayProperties: Decodable {
@@ -184,4 +189,11 @@ struct RawItem: Decodable {
     struct EquippingBlock: Decodable {
         let ammoType: Item.AmmoType
     }
+
+    struct TalentGrid: Decodable {
+        let talentGridHash: Int
+        let buildName: String?
+        let hudDamageType: Item.DamageType
+    }
+
 }

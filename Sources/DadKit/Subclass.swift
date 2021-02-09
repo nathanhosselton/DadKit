@@ -27,7 +27,7 @@ public extension Character {
     enum Subclass: Decodable, Equatable, Hashable {
 
         /// A given character's class and subclass combination.
-        case solar(Class), arc(Class), void(Class)
+        case solar(Class), arc(Class), void(Class), stasis(Class)
 
         /// Safety case for if/when new subclass combos are created.
         case unknown
@@ -53,6 +53,12 @@ public extension Character {
                 return "Sentinel"
             case .void(.warlock):
                 return "Voidwalker"
+            case .stasis(.hunter):
+                return "Revenant"
+            case .stasis(.titan):
+                return "Behemoth"
+            case .stasis(.warlock):
+                return "Shadebinder"
             default:
                 return "It's a mystery…"
             }

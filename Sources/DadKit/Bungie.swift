@@ -104,7 +104,7 @@ public enum Bungie {
 
     /// A type representing the available platforms for Destiny 2.
     public enum Platform: Int {
-        case none, psn, xbox, blizzard, steam, stadia = 5
+        case none, psn, xbox, steam, blizzard, stadia = 5
 
         /// Internal use
         /// - Warning: Only valid for search queries.
@@ -178,7 +178,7 @@ private extension Player {
         case records = "900"
 
         static var forRaidDad: [Components] {
-            return [.profiles, .characters, .characterEquipment, .itemInstances, .itemTalentGrids]
+            return [.profiles, .characters, .characterEquipment, .itemInstances, .itemPerks, .itemSockets, .itemTalentGrids]
         }
     }
 }

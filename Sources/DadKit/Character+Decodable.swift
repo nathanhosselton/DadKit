@@ -42,7 +42,7 @@ extension Character {
         //Current character's relevant equipment
         let rawEquipment = try root.decode(CharacterEquipment.self, forKey: .characterEquipment)
         let allEquipment = rawEquipment.data[characterHash]!.items //Can't Decodable this because of dynamic keys but ! is safe due to guard
-        equipment = allEquipment.filter { Item.Slot.weaponsAndArmor.contains($0.bucketHash) }
+        equipment = allEquipment.filter { Item.Slot.weaponsAndArmor.contains($0.bucketHash) || $0.bucketHash == Item.Slot.subclass }
                                 .reduce(into: [Int: CharacterEquipment.Equipment.Item]()) { $0[$1.itemHash] = $1 }
 
         //Instance information for the character's equipment
