@@ -49,7 +49,7 @@ class CharacterTests: XCTestCase {
     }
 
     func test_API_GetPlayerRequestResponds200() {
-        let req = Bungie.API.getPlayer(withId: "4611686018468167462", onPlatform: .blizzard).request //WeirdRituals
+        let req = Bungie.API.getPlayer(withId: "4611686018468167462", onPlatform: .blizzard, includingFireteam: false).request //WeirdRituals
         let x = expectation(description: "Get Player request responds with 200.")
         let promise = URLSession.shared.dataTask(.promise, with: req).validate()
 

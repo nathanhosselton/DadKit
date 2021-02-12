@@ -28,7 +28,7 @@ public enum Bungie {
         case getClan(withId: String)
         case getFindClan(withQuery: String)
         case getMembers(withClanId: String)
-        case getPlayer(withId: String, onPlatform: Platform)
+        case getPlayer(withId: String, onPlatform: Platform, includingFireteam: Bool)
         case getFindPlayer(withQuery: String, onPlatform: Platform)
         case getItem(withId: String)
 
@@ -60,9 +60,9 @@ public enum Bungie {
             case .getMembers(let clanId):
                 comps.path = basePath + "/GroupV2/\(clanId)/Members/"
 
-            case .getPlayer(let player, let platform):
+            case .getPlayer(let player, let platform, let includingFireteam):
                 comps.path = basePath + "/Destiny2/\(platform.rawValue)/Profile/\(player)"
-                comps.queryItems = [URLQueryItem(name: "components", value: Player.Components.forRaidDad.asQueryString)]
+                comps.queryItems = [URLQueryItem(name: "components", value: includingFireteam ? Player.Components.forRaidDadAuthenticated.asQueryString : Player.Components.forRaidDad.asQueryString)]
 
             case .getFindPlayer(let query, let platform):
                 comps.path = basePath + "/Destiny2/SearchDestinyPlayer/\(platform.rawValue)/\(query)/"
@@ -74,6 +74,15 @@ public enum Bungie {
             guard let url = comps.url else { fatalError("DadKit: What did I typo " + #file + #function) }
 
             return url
+        }
+
+        public var requiresAuthentication: Bool {
+            switch self {
+            case .getPlayer(_, _, let includingFireteam):
+                return includingFireteam
+            default:
+                return false
+            }
         }
 
         //MARK: API Response
@@ -176,9 +185,14 @@ private extension Player {
         case presentationNodes = "700"
         case collectibles = "800"
         case records = "900"
+        case transientData = "1000"
 
         static var forRaidDad: [Components] {
             return [.profiles, .characters, .characterEquipment, .itemInstances, .itemPerks, .itemSockets, .itemTalentGrids]
+        }
+
+        static var forRaidDadAuthenticated: [Components] {
+            return [.profiles, .characters, .characterEquipment, .itemInstances, .itemPerks, .itemSockets, .itemTalentGrids, .transientData]
         }
     }
 }

@@ -3,7 +3,7 @@ import Foundation
 extension Character {
 
     private enum RootKeys: CodingKey {
-        case profile, characters, characterEquipment, itemComponents
+        case profile, characters, characterEquipment, itemComponents, transitoryData
     }
 
     /// Custom decodable implementation
@@ -58,6 +58,18 @@ extension Character {
         //Current character's subclass tree
         let activeNodes = subclassTalentGrid?.nodes.compactMap { $0.isActivated ? $0.nodeIndex : nil }
         tree = Subclass.Tree(withNodes: activeNodes ?? [])
+
+        if let rawTransitoryData = try? root.decode(TransitoryData.self, forKey: .transitoryData) {
+            self.transitoryData = rawTransitoryData
+            self.fireteamMembers = rawTransitoryData.partyMembers.map { (transitoryPlayer) -> Member in
+                return Member(isOnline: true, destinyUserInfo: Player(displayName: transitoryPlayer.displayName,
+                                                                            membershipType: rawProfile.data.userInfo.membershipType /* this will probably break */,
+                                                                            membershipId: transitoryPlayer.membershipId))
+            }
+        } else {
+            self.transitoryData = nil
+            self.fireteamMembers = nil
+        }
     }
 }
 

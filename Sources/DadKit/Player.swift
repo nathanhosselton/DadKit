@@ -47,6 +47,7 @@ public extension Bungie {
             try Bungie.decoder.decode(PlayerSearchMetaResponse.self, from: data).Response
         }
     }
+
 }
 
 //MARK: API Response
