@@ -15,7 +15,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
-        .package(url: "https://github.com/mxcl/PromiseKit", from: "6.8.0"),
+        .package(name: "PromiseKit", url: "https://github.com/mxcl/PromiseKit", from: "6.13.3"),
         .package(name: "PMKFoundation", url: "https://github.com/b3ll/Foundation.git", .branch("master")),
     ],
     targets: [
