@@ -31,6 +31,7 @@ public enum Bungie {
         case getPlayer(withId: String, onPlatform: Platform, includingFireteam: Bool)
         case getFindPlayer(withQuery: String, onPlatform: Platform)
         case getItem(withId: String)
+        case getCurrentUser(_ unused: String = "")
 
         var request: URLRequest {
             guard let key = key else { fatalError("DadKit: A request was attempted before `Bungie.key` was set.") }
@@ -69,6 +70,9 @@ public enum Bungie {
 
             case .getItem(let id):
                 comps.path = basePath + "/Destiny2/Manifest/DestinyInventoryItemDefinition/" + id
+
+            case .getCurrentUser(_):
+                comps.path = basePath + "/User/GetMembershipsForCurrentUser/"
             }
 
             guard let url = comps.url else { fatalError("DadKit: What did I typo " + #file + #function) }
@@ -80,6 +84,8 @@ public enum Bungie {
             switch self {
             case .getPlayer(_, _, let includingFireteam):
                 return includingFireteam
+            case .getCurrentUser(_):
+                return true
             default:
                 return false
             }
@@ -112,7 +118,7 @@ public enum Bungie {
     }
 
     /// A type representing the available platforms for Destiny 2.
-    public enum Platform: Int {
+    public enum Platform: Int, Encodable, Decodable {
         case none, psn, xbox, steam, blizzard, stadia = 5
 
         /// Internal use

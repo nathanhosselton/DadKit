@@ -3,7 +3,7 @@ import PromiseKit
 import PMKFoundation
 
 /// A type for representing a player of Destiny 2.
-public struct Player: Decodable {
+public struct Player: Decodable, Encodable {
 
     /// The player's chosen name on their platform.
     /// - Note: Does not display the trailing hash for Battlenet ids.
@@ -48,10 +48,29 @@ public extension Bungie {
         }
     }
 
+    static func getCurrentPlayer(signRequest: (URLRequest) -> URLRequest) -> Promise<[Player]> {
+        let request = API.getCurrentUser().request
+        let signedRequest = signRequest(request)
+
+        return firstly {
+            Bungie.send(signedRequest)
+        }.map(on: .global()) { data, _ in
+            try Bungie.decoder.decode(UserMetaResponse.self, from: data).Response.destinyMemberships
+        }
+    }
+
 }
 
 //MARK: API Response
 
 struct PlayerSearchMetaResponse: Decodable {
     let Response: [Player]
+}
+
+struct UserMetaResponse: Decodable {
+    let Response: UserResponse
+
+    struct UserResponse: Decodable {
+        let destinyMemberships: [Player]
+    }
 }
