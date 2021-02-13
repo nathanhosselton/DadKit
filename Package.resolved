@@ -6,7 +6,7 @@
         "repositoryURL": "https://github.com/b3ll/Foundation.git",
         "state": {
           "branch": "master",
-          "revision": "47dc41364d2b20122510e56b73fe2a13c904a82e",
+          "revision": "443fff725561affd3c4fad63759c89c56d9e11c3",
           "version": null
         }
       },
@@ -16,7 +16,7 @@
         "state": {
           "branch": null,
           "revision": "aea48ea1855f5d82e2dffa6027afce3aab8f3dd7",
-          "version": "6.13.3"
+          "version": null
         }
       }
     ]

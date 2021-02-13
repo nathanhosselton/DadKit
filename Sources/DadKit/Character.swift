@@ -73,19 +73,23 @@ public struct Character: Decodable, SubclassRepresentable {
     internal let itemInstances: [Int: ItemComponents.Instances.Item]
 
     // I have no idea what this is.
-    internal let transitoryData: TransitoryData?
+    internal let transitoryData: TransitoryDataResponse.TransitoryData?
 
     public let fireteamMembers: [Member]?
 }
 
-// Apparently Bungie is going to be changing this a lot so I'm not even going to bother conforming to decodable.
-struct TransitoryData: Decodable {
+// Apparently Bungie is going to be changing this a lot so I'm not even going to bother conforming to decodable properly.
+struct TransitoryDataResponse: Decodable {
     struct TransitoryPlayer: Decodable {
         let membershipId: String
         let displayName: String
     }
 
-    let partyMembers: [TransitoryPlayer]
+    struct TransitoryData: Decodable {
+        let partyMembers: [TransitoryPlayer]
+    }
+
+    let data: TransitoryData
 }
 
 public extension Character {
@@ -210,7 +214,9 @@ public extension Bungie {
             Bungie.getLoadout(for: character).map { (character, $0) }
         }.map(on: .global()) { character, loadout in
             var character = character
-            character.subclass = .stasis(character.classType)
+            if character.subclass == .unknown {
+                character.subclass = .stasis(character.classType)
+            }
             character.loadout = loadout
             return character
         }
@@ -232,7 +238,9 @@ public extension Bungie {
             Bungie.getLoadout(for: character).map { (character, $0) }
         }.map(on: .global()) { character, loadout in
             var character = character
-            character.subclass = .stasis(character.classType)
+            if character.subclass == .unknown {
+                character.subclass = .stasis(character.classType)
+            }
             character.loadout = loadout
             return character
         }
