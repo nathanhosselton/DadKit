@@ -222,10 +222,14 @@ public extension Bungie {
         }
     }
 
+    /// Retrieves the player's most recently used `Character`, fully formed, including all `loadout` data and transitory data for the given `membershipId` and `platform`.
+    /// - Note: This requires signing the request with an OAuth signature. `signRequest` should return a signed version of the request given.
     static func getCurrentCharacterIncludingTransitoryData(for membershipId: String, platform: Platform, signRequest: (URLRequest) -> URLRequest) -> Promise<Character> {
         return getCurrentCharacterIncludingTransitoryData(for: Player(displayName: "", membershipType: platform.rawValue, membershipId: membershipId), signRequest: signRequest)
     }
 
+    /// Retrieves the given `player`'s most recently used `Character`, fully formed, including all `loadout` data and transitory data.
+    /// - Note: This requires signing the request with an OAuth signature. `signRequest` should return a signed version of the request given.
     static func getCurrentCharacterIncludingTransitoryData(for player: Player, signRequest: (URLRequest) -> URLRequest) -> Promise<Character> {
         var request = API.getPlayer(withId: player.membershipId, onPlatform: player.platform, includingFireteam: true).request
         request = signRequest(request)
@@ -238,9 +242,6 @@ public extension Bungie {
             Bungie.getLoadout(for: character).map { (character, $0) }
         }.map(on: .global()) { character, loadout in
             var character = character
-            if character.subclass == .unknown {
-                character.subclass = .stasis(character.classType)
-            }
             character.loadout = loadout
             return character
         }

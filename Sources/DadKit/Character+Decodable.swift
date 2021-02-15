@@ -55,10 +55,17 @@ extension Character {
         let subclassTalentGrid = itemComponents.talentGrids.data.first(where: { $0.key == subclassKey } )?.value
         subclass = Subclass(withHash: subclassTalentGrid?.talentGridHash)
 
+        // If we have no subclass, we need to parse out stasis manually.
+        // It's very weirdly handled currently so we can fix this once the poison subclass arrives.
+        if subclass == .unknown {
+            subclass = .stasis(character.classType)
+        }
+
         //Current character's subclass tree
         let activeNodes = subclassTalentGrid?.nodes.compactMap { $0.isActivated ? $0.nodeIndex : nil }
         tree = Subclass.Tree(withNodes: activeNodes ?? [])
 
+        // Parses out the fireteam info from the transitory data. This seems pretty unreliable though.
         if let rawTransitoryData = try? root.decode(TransitoryDataResponse.self, forKey: .profileTransitoryData) {
             self.transitoryData = rawTransitoryData.data
             self.fireteamMembers = rawTransitoryData.data.partyMembers.map { (transitoryPlayer) -> Member in
