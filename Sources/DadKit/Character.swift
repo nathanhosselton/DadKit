@@ -51,6 +51,15 @@ public struct Character: Decodable, SubclassRepresentable {
     /// The current recovery stat of this character.
     public let recovery: Int
 
+    /// The current discipline stat of this character.
+    public let discipline: Int
+
+    /// The current intellect stat of this character.
+    public let intellect: Int
+
+    /// The current strength stat of this character.
+    public let strength: Int
+
     /// The url for the character's current emblem.
     public let emblemPath: URL
 

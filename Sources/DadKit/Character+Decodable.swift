@@ -37,6 +37,10 @@ extension Character {
         mobility = character.stats.mobility
         resilience = character.stats.resilience
         recovery = character.stats.recovery
+        discipline = character.stats.discipline
+        intellect = character.stats.intellect
+        strength = character.stats.strength
+
         classType = character.classType
 
         //Current character's relevant equipment
@@ -103,9 +107,17 @@ struct RawCharacter: Decodable {
         let mobility: Int
         let resilience: Int
         let recovery: Int
+        let discipline: Int
+        let intellect: Int
+        let strength: Int
 
         enum Keys: String, CodingKey {
-            case mobility = "2996146975", resilience = "392767087", recovery = "1943323491"
+            case mobility = "2996146975"
+            case resilience = "392767087"
+            case recovery = "1943323491"
+            case discipline = "1735777505"
+            case intellect = "144602215"
+            case strength = "4244567218"
         }
 
         init(from decoder: Decoder) throws {
@@ -114,6 +126,9 @@ struct RawCharacter: Decodable {
             mobility = try rawStats.decode(Int.self, forKey: .mobility)
             resilience = try rawStats.decode(Int.self, forKey: .resilience)
             recovery = try rawStats.decode(Int.self, forKey: .recovery)
+            discipline = try rawStats.decode(Int.self, forKey: .discipline)
+            intellect = try rawStats.decode(Int.self, forKey: .intellect)
+            strength = try rawStats.decode(Int.self, forKey: .strength)
         }
     }
 
