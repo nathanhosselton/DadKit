@@ -1,4 +1,5 @@
 import Foundation
+import PromiseKit
 import PMKFoundation
 
 /// A type representing a clan on Bungie.net.

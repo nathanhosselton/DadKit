@@ -1,4 +1,5 @@
 import Foundation
+import PromiseKit
 import PMKFoundation
 
 /// A type for representing a player who is a member of a clan. Returned from API requests for clan members.

@@ -1,4 +1,5 @@
 import Foundation
+import PromiseKit
 import PMKFoundation
 
 /// Bungo.
@@ -27,9 +28,10 @@ public enum Bungie {
         case getClan(withId: String)
         case getFindClan(withQuery: String)
         case getMembers(withClanId: String)
-        case getPlayer(withId: String, onPlatform: Platform)
+        case getPlayer(withId: String, onPlatform: Platform, includingFireteam: Bool)
         case getFindPlayer(withQuery: String, onPlatform: Platform)
         case getItem(withId: String)
+        case getCurrentUser(_ unused: String = "")
 
         var request: URLRequest {
             guard let key = key else { fatalError("DadKit: A request was attempted before `Bungie.key` was set.") }
@@ -59,20 +61,34 @@ public enum Bungie {
             case .getMembers(let clanId):
                 comps.path = basePath + "/GroupV2/\(clanId)/Members/"
 
-            case .getPlayer(let player, let platform):
+            case .getPlayer(let player, let platform, let includingFireteam):
                 comps.path = basePath + "/Destiny2/\(platform.rawValue)/Profile/\(player)"
-                comps.queryItems = [URLQueryItem(name: "components", value: Player.Components.forRaidDad.asQueryString)]
+                comps.queryItems = [URLQueryItem(name: "components", value: includingFireteam ? Player.Components.forRaidDadAuthenticated.asQueryString : Player.Components.forRaidDad.asQueryString)]
 
             case .getFindPlayer(let query, let platform):
                 comps.path = basePath + "/Destiny2/SearchDestinyPlayer/\(platform.rawValue)/\(query)/"
 
             case .getItem(let id):
                 comps.path = basePath + "/Destiny2/Manifest/DestinyInventoryItemDefinition/" + id
+
+            case .getCurrentUser(_):
+                comps.path = basePath + "/User/GetMembershipsForCurrentUser/"
             }
 
             guard let url = comps.url else { fatalError("DadKit: What did I typo " + #file + #function) }
 
             return url
+        }
+
+        public var requiresAuthentication: Bool {
+            switch self {
+            case .getPlayer(_, _, let includingFireteam):
+                return includingFireteam
+            case .getCurrentUser(_):
+                return true
+            default:
+                return false
+            }
         }
 
         //MARK: API Response
@@ -102,8 +118,8 @@ public enum Bungie {
     }
 
     /// A type representing the available platforms for Destiny 2.
-    public enum Platform: Int {
-        case none, xbox, psn, blizzard = 4
+    public enum Platform: Int, Encodable, Decodable {
+        case none, psn, xbox, steam, blizzard, stadia = 5
 
         /// Internal use
         /// - Warning: Only valid for search queries.
@@ -114,7 +130,8 @@ public enum Bungie {
             switch self {
             case .xbox: return "XBOX"
             case .psn: return "PSN"
-            case .blizzard: return "PC"
+            case .blizzard, .steam: return "PC"
+            case .stadia: return "STADIA"
             default: return ""
             }
         }
@@ -174,9 +191,14 @@ private extension Player {
         case presentationNodes = "700"
         case collectibles = "800"
         case records = "900"
+        case transientData = "1000"
 
         static var forRaidDad: [Components] {
-            return [.profiles, .characters, .characterEquipment, .itemInstances, .itemTalentGrids]
+            return [.profiles, .characters, .characterEquipment, .itemInstances, .itemPerks, .itemSockets, .itemTalentGrids]
+        }
+
+        static var forRaidDadAuthenticated: [Components] {
+            return [.profiles, .characters, .characterEquipment, .itemInstances, .itemPerks, .itemSockets, .itemTalentGrids, .transientData]
         }
     }
 }

@@ -1,4 +1,5 @@
 import Foundation
+import PromiseKit
 import PMKFoundation
 
 /// A type for represeting an in-game character for Destiny 2.
@@ -13,7 +14,7 @@ public struct Character: Decodable, SubclassRepresentable {
     /// This character's subclass, i.e. Solar, Arc, or Void.
     /// - Note: This object is provided for convenience and has no public accessors of its own.
     /// - SeeAlso: `subclassName`, `subclassPath`, `subclassTree`, and `subclassSuper`
-    public let subclass: Subclass
+    internal(set) public var subclass: Subclass
 
     /// The name for this character's chosen Subclass. E.g. "Gunslinger".
     public var subclassName: String {
@@ -70,6 +71,25 @@ public struct Character: Decodable, SubclassRepresentable {
     internal let equipment: [Int: CharacterEquipment.Equipment.Item]
     //Instance information for the currently equipped items to be used to construct the `loadout`.
     internal let itemInstances: [Int: ItemComponents.Instances.Item]
+
+    // I have no idea what this is.
+    internal let transitoryData: TransitoryDataResponse.TransitoryData?
+
+    public let fireteamMembers: [Member]?
+}
+
+// Apparently Bungie is going to be changing this a lot so I'm not even going to bother conforming to decodable properly.
+struct TransitoryDataResponse: Decodable {
+    struct TransitoryPlayer: Decodable {
+        let membershipId: String
+        let displayName: String
+    }
+
+    struct TransitoryData: Decodable {
+        let partyMembers: [TransitoryPlayer]
+    }
+
+    let data: TransitoryData
 }
 
 public extension Character {
@@ -177,7 +197,7 @@ public extension Bungie {
     /// Retrieves the given `player`'s most recently used `Character` without making the requests for the `loadout`.
     /// When using this function, the `Loadout` will need to be requested using `Bungie.getLoadout(for:)` and tracked separately.
     static func getCurrentCharacterWithoutLoadout(for player: Player) -> Promise<Character> {
-        let request = API.getPlayer(withId: player.membershipId, onPlatform: player.platform).request
+        let request = API.getPlayer(withId: player.membershipId, onPlatform: player.platform, includingFireteam: false).request
 
         return firstly {
             Bungie.send(request)
@@ -194,10 +214,40 @@ public extension Bungie {
             Bungie.getLoadout(for: character).map { (character, $0) }
         }.map(on: .global()) { character, loadout in
             var character = character
+            if character.subclass == .unknown {
+                character.subclass = .stasis(character.classType)
+            }
             character.loadout = loadout
             return character
         }
     }
+
+    /// Retrieves the player's most recently used `Character`, fully formed, including all `loadout` data and transitory data for the given `membershipId` and `platform`.
+    /// - Note: This requires signing the request with an OAuth signature. `signRequest` should return a signed version of the request given.
+    static func getCurrentCharacterIncludingTransitoryData(for membershipId: String, platform: Platform, signRequest: (URLRequest) -> URLRequest) -> Promise<Character> {
+        return getCurrentCharacterIncludingTransitoryData(for: Player(displayName: "", membershipType: platform.rawValue, membershipId: membershipId), signRequest: signRequest)
+    }
+
+    /// Retrieves the given `player`'s most recently used `Character`, fully formed, including all `loadout` data and transitory data.
+    /// - Note: This requires signing the request with an OAuth signature. `signRequest` should return a signed version of the request given.
+    static func getCurrentCharacterIncludingTransitoryData(for player: Player, signRequest: (URLRequest) -> URLRequest) -> Promise<Character> {
+        var request = API.getPlayer(withId: player.membershipId, onPlatform: player.platform, includingFireteam: true).request
+        request = signRequest(request)
+
+        return firstly {
+            Bungie.send(request)
+        }.map(on: .global()) { data, _ in
+            try Bungie.decoder.decode(PlayerMetaResponse.self, from: data).Response
+        }.then(on: .global()) { character in
+            Bungie.getLoadout(for: character).map { (character, $0) }
+        }.map(on: .global()) { character, loadout in
+            var character = character
+            character.loadout = loadout
+            return character
+        }
+    }
+
+
 }
 
 //MARK: API Response

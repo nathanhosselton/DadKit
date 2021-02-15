@@ -3,7 +3,7 @@ import Foundation
 extension Character {
 
     private enum RootKeys: CodingKey {
-        case profile, characters, characterEquipment, itemComponents
+        case profile, characters, characterEquipment, itemComponents, profileTransitoryData
     }
 
     /// Custom decodable implementation
@@ -42,7 +42,7 @@ extension Character {
         //Current character's relevant equipment
         let rawEquipment = try root.decode(CharacterEquipment.self, forKey: .characterEquipment)
         let allEquipment = rawEquipment.data[characterHash]!.items //Can't Decodable this because of dynamic keys but ! is safe due to guard
-        equipment = allEquipment.filter { Item.Slot.weaponsAndArmor.contains($0.bucketHash) }
+        equipment = allEquipment.filter { Item.Slot.weaponsAndArmor.contains($0.bucketHash) || $0.bucketHash == Item.Slot.subclass }
                                 .reduce(into: [Int: CharacterEquipment.Equipment.Item]()) { $0[$1.itemHash] = $1 }
 
         //Instance information for the character's equipment
@@ -55,9 +55,28 @@ extension Character {
         let subclassTalentGrid = itemComponents.talentGrids.data.first(where: { $0.key == subclassKey } )?.value
         subclass = Subclass(withHash: subclassTalentGrid?.talentGridHash)
 
+        // If we have no subclass, we need to parse out stasis manually.
+        // It's very weirdly handled currently so we can fix this once the poison subclass arrives.
+        if subclass == .unknown {
+            subclass = .stasis(character.classType)
+        }
+
         //Current character's subclass tree
         let activeNodes = subclassTalentGrid?.nodes.compactMap { $0.isActivated ? $0.nodeIndex : nil }
         tree = Subclass.Tree(withNodes: activeNodes ?? [])
+
+        // Parses out the fireteam info from the transitory data. This seems pretty unreliable though.
+        if let rawTransitoryData = try? root.decode(TransitoryDataResponse.self, forKey: .profileTransitoryData) {
+            self.transitoryData = rawTransitoryData.data
+            self.fireteamMembers = rawTransitoryData.data.partyMembers.map { (transitoryPlayer) -> Member in
+                return Member(isOnline: true, destinyUserInfo: Player(displayName: transitoryPlayer.displayName,
+                                                                            membershipType: rawProfile.data.userInfo.membershipType /* this will probably break */,
+                                                                            membershipId: transitoryPlayer.membershipId))
+            }
+        } else {
+            self.transitoryData = nil
+            self.fireteamMembers = nil
+        }
     }
 }
 
