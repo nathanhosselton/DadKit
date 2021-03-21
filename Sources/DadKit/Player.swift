@@ -17,7 +17,7 @@ public struct Player: Decodable, Encodable {
     /// The raw value that represent's the player account's platform.
     internal let membershipType: Int
     /// The unique platform-specific identifier of this player account.
-    internal let membershipId: String
+    public let membershipId: String
 }
 
 extension Player: Comparable {
