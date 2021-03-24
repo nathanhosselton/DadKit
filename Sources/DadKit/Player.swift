@@ -9,6 +9,8 @@ public struct Player: Decodable, Encodable {
     /// - Note: Does not display the trailing hash for Battlenet ids.
     public let displayName: String
 
+    public let lastSeenDisplayName: String?
+
     /// The platform on which this player account originates.
     public var platform: Bungie.Platform {
         return .init(rawValue: .some(membershipType))
@@ -18,6 +20,21 @@ public struct Player: Decodable, Encodable {
     internal let membershipType: Int
     /// The unique platform-specific identifier of this player account.
     public let membershipId: String
+
+    public init(displayName: String = "", membershipId: String, membershipPlatform: Bungie.Platform) {
+        self.displayName = displayName
+        self.lastSeenDisplayName = displayName
+        self.membershipId = membershipId
+        self.membershipType = membershipPlatform.rawValue
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case displayName
+        case membershipType
+        case membershipId
+        case lastSeenDisplayName = "LastSeenDisplayName"
+    }
+    
 }
 
 extension Player: Comparable {

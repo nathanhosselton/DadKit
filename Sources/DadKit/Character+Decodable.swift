@@ -74,8 +74,8 @@ extension Character {
             self.transitoryData = rawTransitoryData.data
             self.fireteamMembers = rawTransitoryData.data.partyMembers.map { (transitoryPlayer) -> Member in
                 return Member(isOnline: true, destinyUserInfo: Player(displayName: transitoryPlayer.displayName,
-                                                                            membershipType: rawProfile.data.userInfo.membershipType /* this will probably break */,
-                                                                            membershipId: transitoryPlayer.membershipId))
+                                                                            membershipId: transitoryPlayer.membershipId,
+                                                                            membershipPlatform: rawProfile.data.userInfo.platform /* this will probably break */))
             }
         } else {
             self.transitoryData = nil

@@ -6,7 +6,7 @@ import PMKFoundation
 public struct Character: Decodable, SubclassRepresentable {
 
     /// The player that owns this character.
-    public let player: Player
+    internal(set) public var player: Player
 
     /// This character's class, i.e. Titan, Hunter, or Warlock.
     public let classType: Class
@@ -223,6 +223,9 @@ public extension Bungie {
             Bungie.getLoadout(for: character).map { (character, $0) }
         }.map(on: .global()) { character, loadout in
             var character = character
+            // The player's Steam name isn't returned from this API, so if we have the info from the initial request, we'll use that.
+            character.player = Player(displayName: player.lastSeenDisplayName ?? character.player.displayName, membershipId: character.player
+                                        .membershipId, membershipPlatform: character.player.platform)
             if character.subclass == .unknown {
                 character.subclass = .stasis(character.classType)
             }
@@ -234,7 +237,7 @@ public extension Bungie {
     /// Retrieves the player's most recently used `Character`, fully formed, including all `loadout` data and transitory data for the given `membershipId` and `platform`.
     /// - Note: This requires signing the request with an OAuth signature. `signRequest` should return a signed version of the request given.
     static func getCurrentCharacterIncludingTransitoryData(for membershipId: String, platform: Platform, signRequest: (URLRequest) -> URLRequest) -> Promise<Character> {
-        return getCurrentCharacterIncludingTransitoryData(for: Player(displayName: "", membershipType: platform.rawValue, membershipId: membershipId), signRequest: signRequest)
+        return getCurrentCharacterIncludingTransitoryData(for: Player(displayName: "", membershipId: membershipId, membershipPlatform: platform), signRequest: signRequest)
     }
 
     /// Retrieves the given `player`'s most recently used `Character`, fully formed, including all `loadout` data and transitory data.
@@ -297,7 +300,7 @@ struct CharacterEquipment: Decodable {
             struct State: OptionSet, Decodable {
                 let rawValue: UInt32
 
-                static let none         = State(rawValue: 0)
+                static let none         = State([])
                 static let locked       = State(rawValue: 1 << 0)
                 static let tracked      = State(rawValue: 1 << 1)
                 static let masterwork   = State(rawValue: 1 << 2)
