@@ -119,7 +119,7 @@ public enum Bungie {
 
     /// A type representing the available platforms for Destiny 2.
     public enum Platform: Int, Encodable, Decodable {
-        case none, psn, xbox, steam, blizzard, stadia = 5
+        case none, xbox = 1, psn = 2, steam = 3, blizzard, stadia = 5
 
         /// Internal use
         /// - Warning: Only valid for search queries.
