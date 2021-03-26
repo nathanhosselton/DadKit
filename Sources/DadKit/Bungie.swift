@@ -27,6 +27,7 @@ public enum Bungie {
     enum API {
         case getClan(withId: String)
         case getFindClan(withQuery: String)
+        case postFindClan(_ unused: String = "")
         case getMembers(withClanId: String)
         case getPlayer(withId: String, onPlatform: Platform, includingFireteam: Bool)
         case getFindPlayer(withQuery: String, onPlatform: Platform)
@@ -40,8 +41,15 @@ public enum Bungie {
             guard let appVersion = appVersion else { fatalError("DadKit: A request was attempted before `Bungie.appVersion` was set.") }
 
             var req = URLRequest(url: endpoint)
+            if needsPostRequest {
+                req.httpMethod = "POST"
+            } else {
+                req.httpMethod = "GET"
+            }
+
             req.addValue("Raid-Dad/\(appVersion) AppId/\(appId) (+www.raiddad.com;nathanhosselton@gmail.com)", forHTTPHeaderField: "User-Agent")
             req.addValue(key, forHTTPHeaderField: "X-API-Key")
+
             return req
         }
 
@@ -58,6 +66,9 @@ public enum Bungie {
 
                 case .getFindClan(let query):
                     comps.path = basePath + "/GroupV2/Name/\(query)/1/"
+
+                case .postFindClan(_):
+                    comps.path = basePath + "/GroupV2/NameV2/"
 
                 case .getMembers(let clanId):
                     comps.path = basePath + "/GroupV2/\(clanId)/Members/"
@@ -92,6 +103,15 @@ public enum Bungie {
                 return true
             default:
                 return false
+            }
+        }
+
+        public var needsPostRequest: Bool {
+            switch self {
+                case .postFindClan(_):
+                    return true
+                default:
+                    return false
             }
         }
 

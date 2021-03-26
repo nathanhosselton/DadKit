@@ -34,8 +34,22 @@ public extension Bungie {
 
     /// Performs a clan search using the provided name.
     static func searchForClan(named name: String) -> Promise<Clan> {
-        let request = API.getFindClan(withQuery: name).request
-        
+        var request = API.postFindClan().request
+
+        let parameters: [String: Any] = [
+            "groupName": name,
+            "groupType": 1
+        ]
+
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
+        } catch let error {
+            print(error.localizedDescription)
+        }
+
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+
         return firstly {
             Bungie.send(request)
         }.map(on: .global()) { data, _ in

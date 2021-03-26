@@ -1,5 +1,6 @@
 import XCTest
 @testable import DadKit
+@testable import PromiseKit
 
 class ClanTests: XCTestCase {
 
@@ -36,11 +37,11 @@ class ClanTests: XCTestCase {
     }
 
     func test_API_FindClanRequestResponds200() {
-        let req = Bungie.API.getFindClan(withQuery: "Meow Pew Pew").request
         let x = expectation(description: "Find Clan request responds with 200.")
-        let promise = URLSession.shared.dataTask(.promise, with: req).validate()
-        
-        promise.done { _ in
+
+        firstly {
+            Bungie.searchForClan(named: "Meow Pew Pew")
+        }.done { clan in
             x.fulfill()
         }.catch {
             XCTFail($0.localizedDescription)
@@ -51,11 +52,26 @@ class ClanTests: XCTestCase {
     }
 
     func test_API_FindClanRequestWithSpecialCharactersResponds200() {
-        let req = Bungie.API.getFindClan(withQuery: "hello!").request
         let x = expectation(description: "Find Clan request responds with 200.")
-        let promise = URLSession.shared.dataTask(.promise, with: req).validate()
 
-        promise.done { _ in
+        firstly {
+            Bungie.searchForClan(named: "Hello!")
+        }.done { _ in
+            x.fulfill()
+        }.catch {
+            XCTFail($0.localizedDescription)
+            x.fulfill()
+        }
+
+        wait(for: [x], timeout: 10)
+    }
+
+    func test_API_FindClanRequestWithAsterisksResponds200() {
+        let x = expectation(description: "Find Clan request responds with 200.")
+
+        firstly {
+            Bungie.searchForClan(named: "*Galaktisches Imperium*")
+        }.done { _ in
             x.fulfill()
         }.catch {
             XCTFail($0.localizedDescription)
@@ -66,11 +82,11 @@ class ClanTests: XCTestCase {
     }
 
     func test_API_FindClanRequestWithExtraSpecialCharactersResponds200() {
-        let req = Bungie.API.getFindClan(withQuery: "Levante's Legionaires").request
         let x = expectation(description: "Find Clan request responds with 200.")
-        let promise = URLSession.shared.dataTask(.promise, with: req).validate()
 
-        promise.done { _ in
+        firstly {
+            Bungie.searchForClan(named: "Levante's Legionaires")
+        }.done { _ in
             x.fulfill()
         }.catch {
             XCTFail($0.localizedDescription)
@@ -79,12 +95,6 @@ class ClanTests: XCTestCase {
 
         wait(for: [x], timeout: 10)
     }
-
-/*
-     let supportedCharacters = CharacterSet.alphanumerics.union(CharacterSet(charactersIn: "-_.!~*'()[]"))
-     let urlEncodedClanSearchText = clanSearchText.lowercased().addingPercentEncoding(withAllowedCharacters: supportedCharacters)
-     print(urlEncodedClanSearchText)
-*/
 
 }
 
