@@ -76,7 +76,7 @@ public enum Bungie {
                     comps.path = basePath + "/User/GetMembershipsForCurrentUser/"
 
                 case .getMembershipData(let membershipId, let membershipPlatform):
-                    comps.path = basePath + "/User/GetMembershipsById/\(membershipId)/\(membershipPlatform)/"
+                    comps.path = basePath + "/User/GetMembershipsById/\(membershipId)/\(membershipPlatform.rawValue)/"
             }
 
             guard let url = comps.url else { fatalError("DadKit: What did I typo " + #file + #function) }
@@ -123,7 +123,7 @@ public enum Bungie {
 
     /// A type representing the available platforms for Destiny 2.
     public enum Platform: Int, Encodable, Decodable {
-        case none, xbox = 1, psn = 2, steam = 3, blizzard, stadia = 5
+        case none = 0, xbox = 1, psn = 2, steam = 3, blizzard = 4, stadia = 5
 
         /// Internal use
         /// - Warning: Only valid for search queries.
