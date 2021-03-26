@@ -76,6 +76,16 @@ public extension Bungie {
         }
     }
 
+    static func getMembershipData(for membershipId: String, platform: Platform) -> Promise<[Player]> {
+        let request = API.getMembershipData(withId: membershipId, onPlatform: platform).request
+
+        return firstly {
+            Bungie.send(request)
+        }.map(on: .global()) { data, _ in
+            try Bungie.decoder.decode(UserMetaResponse.self, from: data).Response.destinyMemberships
+        }
+    }
+
 }
 
 //MARK: API Response

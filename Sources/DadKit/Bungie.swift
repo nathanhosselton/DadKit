@@ -32,6 +32,7 @@ public enum Bungie {
         case getFindPlayer(withQuery: String, onPlatform: Platform)
         case getItem(withId: String)
         case getCurrentUser(_ unused: String = "")
+        case getMembershipData(withId: String, onPlatform: Platform)
 
         var request: URLRequest {
             guard let key = key else { fatalError("DadKit: A request was attempted before `Bungie.key` was set.") }
@@ -52,27 +53,30 @@ public enum Bungie {
             let basePath = "/Platform"
 
             switch self {
-            case .getClan(let id):
-                comps.path = basePath + "/GroupV2/" + id
+                case .getClan(let id):
+                    comps.path = basePath + "/GroupV2/" + id
 
-            case .getFindClan(let query):
-                comps.path = basePath + "/GroupV2/Name/\(query)/1/"
+                case .getFindClan(let query):
+                    comps.path = basePath + "/GroupV2/Name/\(query)/1/"
 
-            case .getMembers(let clanId):
-                comps.path = basePath + "/GroupV2/\(clanId)/Members/"
+                case .getMembers(let clanId):
+                    comps.path = basePath + "/GroupV2/\(clanId)/Members/"
 
-            case .getPlayer(let player, let platform, let includingFireteam):
-                comps.path = basePath + "/Destiny2/\(platform.rawValue)/Profile/\(player)"
-                comps.queryItems = [URLQueryItem(name: "components", value: includingFireteam ? Player.Components.forRaidDadAuthenticated.asQueryString : Player.Components.forRaidDad.asQueryString)]
+                case .getPlayer(let player, let platform, let includingFireteam):
+                    comps.path = basePath + "/Destiny2/\(platform.rawValue)/Profile/\(player)"
+                    comps.queryItems = [URLQueryItem(name: "components", value: includingFireteam ? Player.Components.forRaidDadAuthenticated.asQueryString : Player.Components.forRaidDad.asQueryString)]
 
-            case .getFindPlayer(let query, let platform):
-                comps.path = basePath + "/Destiny2/SearchDestinyPlayer/\(platform.rawValue)/\(query)/"
+                case .getFindPlayer(let query, let platform):
+                    comps.path = basePath + "/Destiny2/SearchDestinyPlayer/\(platform.rawValue)/\(query)/"
 
-            case .getItem(let id):
-                comps.path = basePath + "/Destiny2/Manifest/DestinyInventoryItemDefinition/" + id
+                case .getItem(let id):
+                    comps.path = basePath + "/Destiny2/Manifest/DestinyInventoryItemDefinition/" + id
 
-            case .getCurrentUser(_):
-                comps.path = basePath + "/User/GetMembershipsForCurrentUser/"
+                case .getCurrentUser(_):
+                    comps.path = basePath + "/User/GetMembershipsForCurrentUser/"
+
+                case .getMembershipData(let membershipId, let membershipPlatform):
+                    comps.path = basePath + "/User/GetMembershipsById/\(membershipId)/\(membershipPlatform)/"
             }
 
             guard let url = comps.url else { fatalError("DadKit: What did I typo " + #file + #function) }
@@ -128,11 +132,11 @@ public enum Bungie {
         /// The display name of the platform.
         public var name: String {
             switch self {
-            case .xbox: return "XBOX"
-            case .psn: return "PSN"
-            case .blizzard, .steam: return "PC"
-            case .stadia: return "STADIA"
-            default: return ""
+                case .xbox: return "XBOX"
+                case .psn: return "PSN"
+                case .blizzard, .steam: return "PC"
+                case .stadia: return "STADIA"
+                default: return ""
             }
         }
 
