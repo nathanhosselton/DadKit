@@ -65,6 +65,27 @@ class ClanTests: XCTestCase {
         wait(for: [x], timeout: 10)
     }
 
+    func test_API_FindClanRequestWithExtraSpecialCharactersResponds200() {
+        let req = Bungie.API.getFindClan(withQuery: "Levante's Legionaires").request
+        let x = expectation(description: "Find Clan request responds with 200.")
+        let promise = URLSession.shared.dataTask(.promise, with: req).validate()
+
+        promise.done { _ in
+            x.fulfill()
+        }.catch {
+            XCTFail($0.localizedDescription)
+            x.fulfill()
+        }
+
+        wait(for: [x], timeout: 10)
+    }
+
+/*
+     let supportedCharacters = CharacterSet.alphanumerics.union(CharacterSet(charactersIn: "-_.!~*'()[]"))
+     let urlEncodedClanSearchText = clanSearchText.lowercased().addingPercentEncoding(withAllowedCharacters: supportedCharacters)
+     print(urlEncodedClanSearchText)
+*/
+
 }
 
 private var plaintextResponseExample: String {

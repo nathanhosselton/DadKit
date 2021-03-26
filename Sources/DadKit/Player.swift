@@ -21,9 +21,9 @@ public struct Player: Decodable, Encodable {
     /// The unique platform-specific identifier of this player account.
     public let membershipId: String
 
-    public init(displayName: String = "", membershipId: String, membershipPlatform: Bungie.Platform) {
+    public init(displayName: String = "", lastSeenDisplayName: String? = nil, membershipId: String, membershipPlatform: Bungie.Platform) {
         self.displayName = displayName
-        self.lastSeenDisplayName = displayName
+        self.lastSeenDisplayName = lastSeenDisplayName ?? displayName
         self.membershipId = membershipId
         self.membershipType = membershipPlatform.rawValue
     }

@@ -224,8 +224,7 @@ public extension Bungie {
         }.map(on: .global()) { character, loadout in
             var character = character
             // The player's Steam name isn't returned from this API, so if we have the info from the initial request, we'll use that.
-            character.player = Player(displayName: player.lastSeenDisplayName ?? character.player.displayName, membershipId: character.player
-                                        .membershipId, membershipPlatform: character.player.platform)
+            character.player = Player(displayName: character.player.displayName, lastSeenDisplayName: player.lastSeenDisplayName, membershipId: character.player.membershipId, membershipPlatform: character.player.platform)
             if character.subclass == .unknown {
                 character.subclass = .stasis(character.classType)
             }
