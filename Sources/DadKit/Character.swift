@@ -81,9 +81,13 @@ public struct Character: Decodable, SubclassRepresentable {
     //Instance information for the currently equipped items to be used to construct the `loadout`.
     internal let itemInstances: [Int: ItemComponents.Instances.Item]
 
+    // Information used to parse out sockets and mods.
+    internal let sockets: [Int: [ItemSockets.Socket]]
+
     // I have no idea what this is.
     internal let transitoryData: TransitoryDataResponse.TransitoryData?
 
+    // The members of the logged in player's fireteam (if available).
     public let fireteamMembers: [Member]?
 }
 
@@ -152,6 +156,9 @@ public extension Character {
             return exoticArmor != nil
         }
 
+        /// The currently equipped special mods on each armor piece (keyed by the armor piece itself).
+        public let armorMods: [Item: [Mod]]?
+
 //        public typealias Iterator = LoadoutIterator
 //
 //        public typealias Element = Item
@@ -166,6 +173,15 @@ public extension Character {
             energy = items.first(where: { $0.slot == .energy })
             heavy = items.first(where: { $0.slot == .heavy })
             exoticArmor = items.first(where: { ($0.slot, $0.tier) == Item.exoticArmor })
+
+            let armorItems = items.filter { Item.Slot.armor.contains($0.slot) }
+            armorMods = armorItems.compactMap { item -> (Item, [Mod])? in
+                if let mods = item.mods {
+                    return (item, mods)
+                } else {
+                    return nil
+                }
+            }.reduce(into: [:]) { $0[$1.0] = $1.1 }
         }
     }
 
@@ -312,6 +328,7 @@ struct CharacterEquipment: Decodable {
 struct ItemComponents: Decodable {
     let instances: ItemComponents.Instances
     let talentGrids: ItemComponents.TalentGrids
+    let sockets: ItemComponents.Sockets
 
     struct TalentGrids: Decodable {
         let data: [ItemHash: ItemTalentGrid]
@@ -345,6 +362,10 @@ struct ItemComponents: Decodable {
             }
         }
     }
+
+    struct Sockets: Decodable {
+        let data: [ItemHash: ItemSockets]
+    }
 }
 
 struct ItemTalentGrid: Decodable {
@@ -354,5 +375,15 @@ struct ItemTalentGrid: Decodable {
     struct Node: Decodable {
         let nodeIndex: Int
         let isActivated: Bool
+    }
+}
+
+struct ItemSockets: Decodable {
+    let sockets: [Socket]
+
+    struct Socket: Decodable {
+        let plugHash: Int?
+        let isEnabled: Bool
+        let isVisible: Bool
     }
 }

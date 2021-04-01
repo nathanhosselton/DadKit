@@ -34,6 +34,12 @@ public struct Item {
     /// The inventory slot in which this item resides, e.g. Kinetic, Helmet, etc.
     public let slot: Slot
 
+    internal(set) public var mods: [Mod]? = nil
+    internal let socketIndexes: [RawItem.SocketMeta.SocketCategory: [Int]]?
+
+    public let itemHash: Int
+    public let itemInstanceId: Int
+
     /// Indicates that the item's manifest information is not yet in the public API. All fields on the item will
     /// still be present, but are not guaranteed to contain useful information. Display the item accordingly.
     public let isRedacted: Bool
@@ -65,7 +71,7 @@ public struct Item {
         /// Consumables, cosmetics, and other items we're currently ignoring.
         case other
 
-        internal static var armor: [Slot] { return [.helmet, .arms, .chest, .legs] }
+        internal static var armor: [Slot] { return [.helmet, .arms, .chest, .legs, .classArmor] }
         internal static var weapons: [Slot] { return  [.kinetic, .energy, .heavy] }
         internal static var weaponsAndArmor: [Slot] { return armor + weapons }
 
@@ -101,7 +107,18 @@ public struct Item {
         isFullyMasterworked = equip.state.contains(.masterwork)
         slot = rawItem.inventory.bucketTypeHash
         isRedacted = rawItem.redacted
+        itemHash = rawItem.hash
+        itemInstanceId = Int(equip.itemInstanceId) ?? 0
+
+        if let armorSocketCategory = rawItem.sockets?.socketCategories.first(where: { $0.socketCategoryHash == .armorMods }) {
+            socketIndexes = [
+                .armorMods: armorSocketCategory.socketIndexes
+            ]
+        } else {
+            socketIndexes = nil
+        }
     }
+
 }
 
 extension Item: Equatable
@@ -109,6 +126,21 @@ extension Item: Equatable
 
 extension Item: Hashable
 {}
+
+public struct Mod {
+
+    public let name: String
+    public let icon: URL
+
+    /// Builds the fully constructed `Item` from its various components across the API.
+    fileprivate init?(rawItem: RawItem) {
+        name = rawItem.displayProperties.name
+        icon = URL(string: "https://bungie.net" + rawItem.displayProperties.icon)!
+    }
+
+}
+
+extension Mod: Equatable, Hashable {}
 
 //MARK: API Request
 
@@ -133,16 +165,56 @@ extension Bungie {
         return firstly {
             when(fulfilled: itemPromises)
         }.map { rawItems in
-            rawItems.filter { $1.isWeapon || $1.isExoticArmor }
+            rawItems.filter { $1.isWeapon || $1.isArmor }
         }.compactMapValues { itemHash, rawItem in
             guard let equip = character.equipment[itemHash],
                 let instance = character.itemInstances[itemHash]
                 else { throw Bungie.Error.apiReturnedIncongruousCharacterLoadoutInformation }
             return Item(from: rawItem, equip: equip, instance: instance)
+        }.then { items in
+            getArmorMods(for: character, items: items)
         }.map(on: .global()) { items in
             Character.Loadout(with: items)
         }
     }
+
+    /// Retrieves the armor mods for each armor item supplied and returns them. This function is only necessary when using
+    /// `Bungie.getCurrentCharacterWithoutLoadout(for:)`.
+    /// - SeeAlso: `Bungie.getCurrentCharacterWithoutLoadout(for:)`
+    internal static func getArmorMods(for character: Character, items: [Item]) -> Promise<[Item]> {
+        let armorItems = items.filter { Item.Slot.armor.contains($0.slot) }
+
+        // For each of the sockets on the item instance, get all the equipped mods.
+        let armorModItemPromises = armorItems.compactMap { armorItem -> Promise<(Int, [Mod])>? in
+            guard let sockets = character.sockets[armorItem.itemInstanceId], let armorModSocketIndexes = armorItem.socketIndexes?[.armorMods] else { return nil }
+
+            let armorModSockets = armorModSocketIndexes.compactMap { sockets[$0] }
+            let itemPromises = armorModSockets.filter { $0.isEnabled && $0.isVisible }.compactMap { $0.plugHash }.map(Bungie.getItem)
+
+            return
+                when(fulfilled: itemPromises)
+                .compactMap { rawModItems in
+                    return (armorItem.itemInstanceId, rawModItems.compactMap { Mod(rawItem: $0.1) })
+                }
+        }
+
+        return firstly {
+            when(fulfilled: armorModItemPromises)
+        }.map { armorItemModItemsPairs in
+            var updatedItems = items
+            // Update each item with the available armor mods for it.
+            for armorItemModItemsPair in armorItemModItemsPairs {
+                if let itemToUpdateIndex = updatedItems.firstIndex(where: { $0.itemInstanceId == armorItemModItemsPair.0 }) {
+                    var updatedItem = updatedItems[itemToUpdateIndex]
+                    updatedItem.mods = armorItemModItemsPair.1
+                    updatedItems[itemToUpdateIndex] = updatedItem
+                }
+            }
+
+            return updatedItems
+        }
+    }
+
 }
 
 /// Comparitor for checking if an item is exotic armor
@@ -163,9 +235,14 @@ struct RawItem: Decodable {
     let equippingBlock: EquippingBlock?
     let redacted: Bool
     let talentGrid: TalentGrid?
+    let sockets: SocketMeta?
 
     var isExoticArmor: Bool {
         return (inventory.bucketTypeHash, inventory.tierType) == Item.exoticArmor
+    }
+
+    var isArmor: Bool {
+        return Item.Slot.armor.contains(inventory.bucketTypeHash)
     }
 
     var isWeapon: Bool {
@@ -194,6 +271,42 @@ struct RawItem: Decodable {
         let talentGridHash: Int
         let buildName: String?
         let hudDamageType: Item.DamageType
+    }
+
+    struct SocketMeta: Decodable {
+        enum SocketCategory: Int, Decodable {
+            case armorMods = 590099826
+            case unknown = 9999999999
+
+            init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                let value = try container.decode(Int.self)
+                self = SocketCategory(rawValue: value) ?? .unknown
+            }
+        }
+
+        let socketEntries: [Socket]
+        let socketCategories: [SocketCategoryMeta]
+
+        var armorModSocketEntries: [Socket] {
+            guard let armorModsSocketDescription = socketCategories.first(where: { $0.socketCategoryHash == .armorMods }) else {
+                return [Socket]()
+            }
+
+            return armorModsSocketDescription.socketIndexes.compactMap { i in
+                return socketEntries[i]
+            }
+        }
+
+        struct Socket: Decodable {
+            let socketTypeHash: Int
+            let singleInitialItemHash: Int
+        }
+
+        struct SocketCategoryMeta: Decodable {
+            let socketCategoryHash: SocketCategory
+            let socketIndexes: [Int]
+        }
     }
 
 }
