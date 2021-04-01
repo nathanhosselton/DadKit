@@ -54,6 +54,15 @@ extension Character {
         let currentInstanceIds = equipment.map { ($1.itemInstanceId, $0) }
         itemInstances = currentInstanceIds.reduce(into: [Int: ItemComponents.Instances.Item]()) { $0[$1.1] = itemComponents.instances.data[$1.0] }
 
+        // Parse out the sockets.
+        sockets = itemComponents.sockets.data.compactMap { (key: ItemHash, value: ItemSockets) -> (Int, [ItemSockets.Socket])? in
+            if let itemHash = Int(key) {
+                return (itemHash, value.sockets)
+            } else {
+                return nil
+            }
+        }.reduce(into: [:]) { $0[$1.0] = $1.1 }
+
         //Current character's subclass
         let subclassKey = allEquipment.subclassItem?.itemInstanceId
         let subclassTalentGrid = itemComponents.talentGrids.data.first(where: { $0.key == subclassKey } )?.value

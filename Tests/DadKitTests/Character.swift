@@ -1,5 +1,6 @@
 import XCTest
 @testable import DadKit
+@testable import PromiseKit
 
 class CharacterTests: XCTestCase {
 
@@ -54,6 +55,21 @@ class CharacterTests: XCTestCase {
         let promise = URLSession.shared.dataTask(.promise, with: req).validate()
 
         promise.done { character in
+            x.fulfill()
+        }.catch {
+            XCTFail($0.localizedDescription)
+            x.fulfill()
+        }
+
+        wait(for: [x], timeout: 10)
+    }
+
+    func test_API_GetCharacterLoadoutResponds200() {
+        let x = expectation(description: "Get full character loadout responds with 200.")
+
+        firstly {
+            Bungie.getCurrentCharacter(for: Player(membershipId: "4611686018467346411", membershipPlatform: .steam))
+        }.done { character in
             x.fulfill()
         }.catch {
             XCTFail($0.localizedDescription)
